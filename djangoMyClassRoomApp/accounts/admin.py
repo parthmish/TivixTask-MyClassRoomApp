@@ -33,4 +33,4 @@ class ProfielAdmin(admin.ModelAdmin):
         name = obj.user.username
         return name
 
-admin.site.site_header = "MySchoolApp Administration"
+admin.site.site_header = "MyClassRoomApp Administration"
