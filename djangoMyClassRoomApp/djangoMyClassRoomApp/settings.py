@@ -25,7 +25,7 @@ SECRET_KEY = '*!_&=%2^ag!!$l$#e09=akkygo+7q43rw-0&(_vzn0@#+x=u4n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 # User Model Extended
 AUTH_USER_MODEL = 'accounts.User'
@@ -104,6 +104,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# REST-FRAMEWORK CONF
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10
+# }
 
 
 # Internationalization
