@@ -17,7 +17,7 @@ class TeacherViewSet(viewsets.ModelViewSet):
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 class StudentTeacherThroughViewSet(viewsets.ModelViewSet):
     queryset = StudentTeacherThrough.objects.all()
