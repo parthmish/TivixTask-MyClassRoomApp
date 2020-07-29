@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import logo from "./logo.svg";
+import { Link } from "react-router-dom";
 
 import {
   UserOutlined,
@@ -15,6 +16,7 @@ import {
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
+
 const CustomLayout = props => {
   return (
     <Layout>
@@ -46,16 +48,16 @@ const CustomLayout = props => {
           >
             <Menu mode="horizontal">
               <Menu.Item key="class" icon={<TeamOutlined />}>
-                Class
+                <Link to="/">Class</Link>
               </Menu.Item>
               <Menu.Item key="profile" icon={<SettingOutlined />}>
-                Profile
+                <Link to="/profile">Profile</Link>
               </Menu.Item>
-              <Menu.Item key="invites" icon={<PlusOutlined />}>
-                Invitations
+              <Menu.Item key="invitations" icon={<PlusOutlined />}>
+                <Link to="/invitations">Invitations</Link>
               </Menu.Item>
               <Menu.Item key="logout" icon={<LogoutOutlined />}>
-                Logout
+                <Link to="/logout">Logout</Link>
               </Menu.Item>
             </Menu>
             {props.children}

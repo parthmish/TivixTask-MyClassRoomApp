@@ -1,11 +1,12 @@
 import React from "react";
-import { List, Avatar, Space } from "antd";
+import { List, Avatar, Space, Card, Descriptions } from "antd";
 import {
   SmileOutlined,
   LikeOutlined,
   StarOutlined,
   ArrowRightOutlined
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 // const listData = [];
 // for (let i = 0; i < 23; i++) {
@@ -62,8 +63,14 @@ const DataComponents = props => {
             />
           }
         >
-          <ArrowRightOutlined /> {item.user}, {item.section}, {item.roll_number}
-          , {item.grade}, {item.teacher_obj}
+          <Descriptions bordered>
+            <Descriptions.Item label="Name">
+              <Link to={`/profile/${item.pk}`}>{item.user.toUpperCase()}</Link>{" "}
+            </Descriptions.Item>
+            <Descriptions.Item label=" Roll Number">
+              {item.roll_number}
+            </Descriptions.Item>
+          </Descriptions>
         </List.Item>
       )}
     />

@@ -7,7 +7,7 @@ const BaseRouter = () => {
   return (
     <div>
       <Route exact path="/" component={DataList} />
-      <Route exact path="/:dataID" component={DataDetail} />
+      <Route exact path="/profile/:dataID" component={DataDetail} />
     </div>
   );
 };
