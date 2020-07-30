@@ -33,11 +33,7 @@ class Profile(models.Model):
     )
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
-<<<<<<< HEAD
     user =  models.OneToOneField(User, on_delete=models.CASCADE)
-=======
-    user =  models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
->>>>>>> 4b826597f8d96064fd70af0e67d233fb8f87615a
     birth_date = models.DateField(verbose_name='Date of Birth', null=True, blank=True)
     gender = models.CharField(verbose_name='Gender', choices=gender_opt, null=True, blank=True, max_length=10)
     phone_number = models.CharField(verbose_name='Phone Number', validators=[phone_regex], null=True, blank=True, max_length=15)
