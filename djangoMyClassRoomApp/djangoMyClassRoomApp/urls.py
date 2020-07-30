@@ -4,14 +4,11 @@
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from accounts import views
 from home.urls import router as home_router
+from accounts.urls import router as accounts_router
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'profiles', views.ProfileViewSet)
-# Extending home.urls router
+router.registry.extend(accounts_router.registry)
 router.registry.extend(home_router.registry)
 
 # Wire up our API using automatic URL routing.
@@ -19,6 +16,7 @@ router.registry.extend(home_router.registry)
 urlpatterns = [
     path('api/', include(router.urls)),
     path('api/home/', include('home.urls')),
+    path('api/accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

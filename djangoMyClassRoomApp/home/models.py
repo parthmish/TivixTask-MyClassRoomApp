@@ -2,7 +2,6 @@ from django.db import models
 from accounts.models import User
 
 # Create your models here.
-
 class HeadMaster(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     def __str__(self):
@@ -28,8 +27,7 @@ class StudentTeacherThrough(models.Model):
         unique_together = ["student", "teacher", "headmaster"]
 
     def __str__(self):
-        relationship_name = self.student.user.username + ' - ' + self.teacher.user.username
-        return relationship_name
+        return  "Student: " + self.student.user.username + ' - ' + "Teacher: " + self.teacher.user.username
 
 class Student(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
