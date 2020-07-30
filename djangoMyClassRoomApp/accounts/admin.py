@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Profile
+from .models import User, Profile, FriendThrough
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserChangeForm
 
@@ -22,15 +22,30 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(User, UserAdmin)
 
 
+class FriendThroughInline(admin.TabularInline):
+    model = FriendThrough
+    extra = 1
+
+    
+
+@admin.register(FriendThrough)
+class FriendThroughAdmin(admin.ModelAdmin):
+    list_disply = ('user', 'friend_user', 'is_confirmed')
+    
+
 @admin.register(Profile)
 class ProfielAdmin(admin.ModelAdmin):
-    list_display=('name', 'gender', 'birth_date')
+    list_display=('name', 'gender', 'birth_date',)
     search_fields = ('name',)
     list_filter = ( 'gender',)
     readonly_fields = ['user',]
+    inlines = [FriendThroughInline]
 
     def name(self, obj):
         name = obj.user.username
         return name
+
+    class Meta:
+        Profile
 
 admin.site.site_header = "MyClassRoomApp Administration"
