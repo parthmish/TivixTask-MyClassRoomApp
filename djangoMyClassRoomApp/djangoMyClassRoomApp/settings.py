@@ -31,7 +31,9 @@ CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
 
 # User Model Extended
 AUTH_USER_MODEL = 'accounts.User'
-
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,9 +46,18 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
+    'rest_framework.authtoken',
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
+
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
