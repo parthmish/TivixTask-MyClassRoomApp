@@ -25,11 +25,15 @@ SECRET_KEY = '*!_&=%2^ag!!$l$#e09=akkygo+7q43rw-0&(_vzn0@#+x=u4n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost',]
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
+# CORS_ORIGIN_ALLOW_ALL = True
 
 # User Model Extended
 AUTH_USER_MODEL = 'accounts.User'
-
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,12 +44,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
     'rest_framework',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
+    'rest_framework.authtoken',
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
+
 ]
 
+SITE_ID = 1
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -104,6 +119,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# REST-FRAMEWORK CONF
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10
+# }
 
 
 # Internationalization
