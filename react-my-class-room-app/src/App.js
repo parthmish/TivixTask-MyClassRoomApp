@@ -12,6 +12,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <Router>
@@ -26,7 +27,10 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.token != null
+    isAuthenticated: state.token != null,
+    is_student: state.is_student,
+    is_teacher: state.is_teacher,
+    is_headmaster: state.is_headmaster
   };
 };
 

@@ -30,7 +30,6 @@ class CustomRegisterSerializer(RegisterSerializer):
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()        
         user.is_student = True
-        user.is_teacher = False
         user.save()
         adapter.save_user(request, user, self)
         return user
@@ -49,9 +48,11 @@ class TokenSerializer(serializers.ModelSerializer):
         ).data
         is_student = serializer_data.get('is_student')
         is_teacher = serializer_data.get('is_teacher')
+        is_headmaster = serializer_data.get('is_headmaster')
         return {
             'is_student': is_student,
-            'is_teacher': is_teacher
+            'is_teacher': is_teacher,
+            'is_headmaster': is_headmaster,
         }
 
 class ProfileSerializer(serializers.HyperlinkedModelSerializer):
