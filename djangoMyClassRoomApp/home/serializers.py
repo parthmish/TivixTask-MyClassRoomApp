@@ -10,11 +10,12 @@ class HeadMasterSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['user']
 
 
-class TeacherSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HyperlinkedRelatedField(view_name='teacher-detail', queryset=Teacher.objects.all())
+class TeacherSerializer(serializers.ModelSerializer):
+    # user = serializers.HyperlinkedRelatedField(view_name='teacher-detail', queryset=Teacher.objects.all())
+    user = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = Teacher
-        fields = ['user', 'subject', 'student_obj']
+        fields = ['pk', 'user', 'subject', 'student_obj']
 
 
 class StudentSerializer(serializers.ModelSerializer):

@@ -8,15 +8,20 @@ class MyProfile extends React.Component {
   state = {
     dataDetailComponent: {}
   };
+
   componentDidMount() {
-    axios
-      .get(`http://localhost:8000/api/accounts/profiles/${this.props.userId}/`)
-      .then(res => {
-        this.setState({
-          dataDetailComponent: res.data
+    if (this.props.token !== undefined && this.props.token !== null) {
+      axios
+        .get(
+          `http://localhost:8000/api/accounts/profiles/${this.props.userId}/`
+        )
+        .then(res => {
+          this.setState({
+            dataDetailComponent: res.data
+          });
+          console.log(res.data);
         });
-        console.log(res.data);
-      });
+    }
   }
 
   render() {
@@ -25,21 +30,16 @@ class MyProfile extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     loading: state.loading,
     error: state.error,
     token: state.token,
     username: state.username,
-    userId: state.userId
+    userId: state.userId,
+    is_student: state.is_student,
+    is_teacher: state.is_teacher
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    // logout: () => dispatch(actions.logout())
-  };
-};
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(MyProfile)
-);
+export default withRouter(connect(mapStateToProps, null)(MyProfile));

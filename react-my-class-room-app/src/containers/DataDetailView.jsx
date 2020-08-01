@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { Card } from "antd";
 import DataDetailComponent from "../components/DataDetailComponent";
 
 class DataDetail extends React.Component {
