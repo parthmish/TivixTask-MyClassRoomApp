@@ -1,36 +1,44 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updatedObject } from "../utility";
+import { updateObject } from "../utility";
 
 const initialState = {
   token: null,
+  username: null,
+  is_student: null,
+  is_teacher: null,
+  userId: null,
   error: null,
   loading: false
 };
 
 const authStart = (state, action) => {
-  return updatedObject(state, {
+  return updateObject(state, {
     error: null,
     loading: true
   });
 };
 
 const authSuccess = (state, action) => {
-  return updatedObject(state, {
-    token: action.token,
+  return updateObject(state, {
+    token: action.user.token,
+    username: action.user.username,
+    is_student: action.user.is_student,
+    is_teacher: action.user.is_teacher,
+    userId: action.user.userId,
     error: null,
     loading: false
   });
 };
 
 const authFail = (state, action) => {
-  return updatedObject(state, {
+  return updateObject(state, {
     error: action.error,
     loading: false
   });
 };
 
 const authLogout = (state, action) => {
-  return updatedObject(state, {
+  return updateObject(state, {
     token: null
   });
 };

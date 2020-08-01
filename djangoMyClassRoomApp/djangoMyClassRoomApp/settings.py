@@ -34,6 +34,16 @@ AUTH_USER_MODEL = 'accounts.User'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserSerializer',
+    'TOKEN_SERIALIZER': 'accounts.serializers.TokenSerializer'
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+}
+
 # Application definition
 
 INSTALLED_APPS = [
