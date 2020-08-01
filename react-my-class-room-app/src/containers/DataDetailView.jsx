@@ -10,12 +10,14 @@ class DataDetail extends React.Component {
 
   componentDidMount() {
     const dataID = this.props.match.params.dataID;
-    axios.get(`http://localhost:8000/api/home/students/${dataID}`).then(res => {
-      this.setState({
-        dataDetailComponent: res.data
+    axios
+      .get(`http://localhost:8000/api/home/students/${dataID}/`)
+      .then(res => {
+        this.setState({
+          dataDetailComponent: res.data
+        });
+        console.log(res.data);
       });
-      console.log(res.data);
-    });
   }
 
   render() {

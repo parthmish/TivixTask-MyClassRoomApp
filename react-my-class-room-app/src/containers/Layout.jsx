@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, PageHeader } from "antd";
 import logo from "./logo.svg";
 import { Link, withRouter } from "react-router-dom";
 import * as actions from "../store/actions/auth";
@@ -55,20 +55,20 @@ class CustomLayout extends Component {
                 <div>
                   <Menu mode="horizontal">
                     <Menu.Item key="class" icon={<TeamOutlined />}>
-                      <Link to="/class">Class</Link>
+                      <Link to="/class/">Class</Link>
                     </Menu.Item>
                     <Menu.Item key="profile" icon={<SettingOutlined />}>
-                      <Link to="/profile">Profile</Link>
+                      <Link to="/profile/">Profile</Link>
                     </Menu.Item>
                     <Menu.Item key="invitations" icon={<PlusOutlined />}>
-                      <Link to="/invitations">Invitations</Link>
+                      <Link to="/invitations/">Invitations</Link>
                     </Menu.Item>
                     <Menu.Item
                       key="logout"
                       onClick={this.props.logout}
                       icon={<LogoutOutlined />}
                     >
-                      <Link to="/login">Logout</Link>
+                      <Link to="/login/">Logout</Link>
                     </Menu.Item>
                   </Menu>
                   <br />
@@ -78,12 +78,13 @@ class CustomLayout extends Component {
                 <div>
                   <Menu mode="horizontal">
                     <Menu.Item key="login" icon={<LoginOutlined />}>
-                      <Link to="/login">Login</Link>
+                      <Link to="/login/">Login</Link>
                     </Menu.Item>
                     <Menu.Item key="signup" icon={<UserAddOutlined />}>
-                      <Link to="/signup">SignUp</Link>
+                      <Link to="/signup/">Student SignUp</Link>
                     </Menu.Item>
                   </Menu>
+                  <br />
                   {this.props.children}
                 </div>
               )}
@@ -170,9 +171,15 @@ class CustomLayout extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     loading: state.loading,
-    error: state.error
+    error: state.error,
+    token: state.token,
+    username: state.username,
+    userId: state.userId,
+    is_student: state.is_student,
+    is_teacher: state.is_teacher
   };
 };
 

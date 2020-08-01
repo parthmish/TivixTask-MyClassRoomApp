@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, PageHeader } from "antd";
 import * as actions from "../store/actions/auth";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,10 +13,14 @@ const RegistrationForm = props => {
       values.password1,
       values.password2
     );
-    props.history.push("/class");
+    props.history.push("/login");
   };
   return (
     <Form name="register" onFinish={onFinish}>
+      <PageHeader
+        className="site-page-header"
+        subTitle="Only Students Needs to Register"
+      />
       <Form.Item
         name="username"
         label="Username"
@@ -91,13 +95,6 @@ const RegistrationForm = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    loading: state.loading,
-    error: state.error
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (username, email, password1, password2) =>
@@ -105,4 +102,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
+export default connect(null, mapDispatchToProps)(RegistrationForm);
