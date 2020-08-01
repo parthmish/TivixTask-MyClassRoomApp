@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, PageHeader } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import * as actions from "../store/actions/auth";
 import { connect } from "react-redux";
@@ -45,6 +45,10 @@ const NormalLoginForm = props => {
         </Button>
         Or <Link to="/signup/">SignUp!</Link>
       </Form.Item>
+      <PageHeader
+        className="site-page-header"
+        subTitle="Newly Registered Students: Please update your profile for faster account approval from Teachers."
+      />
     </Form>
   );
 };
