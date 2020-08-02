@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Menu } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
+import { connect } from 'react-redux'
 
 const { SubMenu } = Menu;
 
@@ -9,10 +10,8 @@ class SuggestedTeachers extends React.Component {
   state = { data: [] };
 
   componentDidMount() {
-    // const dataID = this.props.match.params.dataID;
-    axios.get(`http://localhost:8000/api/home/teachers/`).then(res => {
+    axios.get(`http://localhost:8000/api/home/suggestedteachers/${this.props.userId}`).then(res => {
       this.setState({ data: res.data });
-      // console.log(res.data);
     });
   }
 
@@ -44,4 +43,12 @@ class SuggestedTeachers extends React.Component {
   }
 }
 
-export default SuggestedTeachers;
+const mapStateToProps = state => {
+  return {
+    loading: state.loading,
+    error: state.error,
+    userId: state.userId,
+  };
+};
+
+export default connect(mapStateToProps, null)(SuggestedTeachers);

@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { Menu } from "antd";
 import { StarOutlined } from "@ant-design/icons";
+import { connect } from 'react-redux'
+
 
 const { SubMenu } = Menu;
 
@@ -9,11 +11,16 @@ class StarredStudents extends React.Component {
   state = { data: [] };
 
   componentDidMount() {
-    // const dataID = this.props.match.params.dataID;
-    axios.get(`http://localhost:8000/api/home/students/`).then(res => {
-      this.setState({ data: res.data });
-      // console.log(res.data);
-    });
+    if (this.props.is_student) {
+      axios.get(`http://localhost:8000/api/home/starredstudents/studentprofile/${this.props.userId}`).then(res => {
+        this.setState({ data: res.data });
+      });
+    }
+    if (this.props.is_teacher) {
+      axios.get(`http://localhost:8000/api/home/starredstudents/teacherprofile/${this.props.userId}`).then(res => {
+        this.setState({ data: res.data });
+      });
+    }
   }
 
   render() {
@@ -44,4 +51,15 @@ class StarredStudents extends React.Component {
   }
 }
 
-export default StarredStudents;
+const mapStateToProps = state => {
+  return {
+    loading: state.loading,
+    error: state.error,
+    userId: state.userId,
+    is_student: state.is_student,
+    is_teacher: state.is_teacher,
+    is_headmaster: state.is_headmaster
+  };
+};
+
+export default connect(mapStateToProps, null)(StarredStudents);

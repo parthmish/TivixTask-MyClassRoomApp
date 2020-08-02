@@ -1,7 +1,12 @@
 from django.urls import include, path
 from rest_framework import routers
 from home import views
-from home.views import StudentClassView
+from home.views import (
+    StudentClassView,
+    MyTeachersClassView,
+    StarredStudentsClassView,
+    SuggestedTeachersClassView,
+    )
 
 router = routers.DefaultRouter()
 router.register(r'headmasters', views.HeadMasterViewSet)
@@ -14,4 +19,7 @@ router.register(r'throughtable', views.StudentTeacherThroughViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('classroom/<int:pk>', StudentClassView.as_view(), name='student-classroom'),
+    path('myteachers/<int:pk>', MyTeachersClassView.as_view(), name='my-teachers'),
+    path('starredstudents/<str:slug>/<int:pk>', StarredStudentsClassView.as_view(), name='starred-students'),
+    path('suggestedteachers/<int:pk>', SuggestedTeachersClassView.as_view(), name='suggested-teachers'),
 ]
