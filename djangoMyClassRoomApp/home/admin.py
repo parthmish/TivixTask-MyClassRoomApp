@@ -8,26 +8,26 @@ class StudentTeacherThroughInline(admin.TabularInline):
 # Register your models here.
 @admin.register(HeadMaster)
 class HeadMasterAdmin(admin.ModelAdmin):
-    list_disply = ('user',)
+    list_display = ('user',)
     inlines = [StudentTeacherThroughInline]
     class Meta:
         model = HeadMaster
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_disply = ('user', 'subject', 'student_obj')
+    list_display = ('user', 'subject')
     inlines = [StudentTeacherThroughInline]
     class Meta:
         model = Teacher
     
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_disply = ('user', 'grade', 'section')
+    list_display = ('user', 'grade', 'section')
     inlines = [StudentTeacherThroughInline]
     class Meta:
         model = Student
 
 @admin.register(StudentTeacherThrough)
 class StudentTeacherThroughAdmin(admin.ModelAdmin):
-    list_disply = ('student', 'teacher', 'is_starred')
+    list_display = ('student', 'teacher', 'is_starred')
     

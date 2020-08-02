@@ -1,18 +1,21 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import DataList from "./containers/DataListView";
+import ClassList from "./containers/ClassListView";
 import MyProfile from "./containers/MyProfileView";
-import DataDetail from "./containers/DataDetailView";
+import UserProfileDetail from "./containers/UserProfileDetailView";
 import Login from "./containers/Login";
 import SignUp from "./containers/SignUp";
-const BaseRouter = () => {
+const BaseRouter = (props) => {
   return (
     <div>
-      <Route exact path="/class" component={DataList} />
-      <Route exact path="/profile/" component={MyProfile} />
-      <Route exact path="/profile/:dataID" component={DataDetail} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/signup" component={SignUp} />
+      {props.isAuthenticated ? <React.Fragment>  <Route exact path="/class" component={ClassList} />
+        <Route exact path="/profile" component={MyProfile} />
+        <Route exact path="/profile/:profileID" component={UserProfileDetail} /> </React.Fragment> :
+        <React.Fragment>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
+        </React.Fragment>
+      }
     </div>
   );
 };

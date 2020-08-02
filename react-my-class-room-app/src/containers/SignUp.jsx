@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, Button, PageHeader } from "antd";
 import * as actions from "../store/actions/auth";
 import { connect } from "react-redux";
