@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const NormalLoginForm = props => {
   const onFinish = values => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
     props.onAuth(values.username, values.password);
     props.history.push("/class");
   };

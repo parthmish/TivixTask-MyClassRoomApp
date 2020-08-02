@@ -8,20 +8,15 @@ import StarredStudents from "../components/StarredStudents";
 import MyFriends from "../components/MyFriends";
 import MyTeachers from "../components/MyTeachers";
 import SuggestedTeachers from "../components/SuggestedTeachers";
-
 import {
-  UserOutlined,
-  StarOutlined,
   TeamOutlined,
   LogoutOutlined,
   SettingOutlined,
-  SmileOutlined,
   UserAddOutlined,
   PlusOutlined,
   LoginOutlined
 } from "@ant-design/icons";
 
-const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 class CustomLayout extends Component {
@@ -79,19 +74,19 @@ class CustomLayout extends Component {
                   {this.props.children}
                 </div>
               ) : (
-                <div>
-                  <Menu mode="horizontal">
-                    <Menu.Item key="login" icon={<LoginOutlined />}>
-                      <Link to="/login">Login</Link>
-                    </Menu.Item>
-                    <Menu.Item key="signup" icon={<UserAddOutlined />}>
-                      <Link to="/signup">Student SignUp</Link>
-                    </Menu.Item>
-                  </Menu>
-                  <br />
-                  {this.props.children}
-                </div>
-              )}
+                  <div>
+                    <Menu mode="horizontal">
+                      <Menu.Item key="login" icon={<LoginOutlined />}>
+                        <Link to="/login">Login</Link>
+                      </Menu.Item>
+                      <Menu.Item key="signup" icon={<UserAddOutlined />}>
+                        <Link to="/signup">Student SignUp</Link>
+                      </Menu.Item>
+                    </Menu>
+                    <br />
+                    {this.props.children}
+                  </div>
+                )}
             </Content>
             {this.props.isAuthenticated ? (
               <React.Fragment>
@@ -105,10 +100,10 @@ class CustomLayout extends Component {
                       <StarredStudents /> <MyFriends />
                     </React.Fragment>
                   ) : (
-                    <React.Fragment>
-                      <StarredStudents />
-                    </React.Fragment>
-                  )}
+                      <React.Fragment>
+                        <StarredStudents />
+                      </React.Fragment>
+                    )}
                 </Sider>
                 <Sider
                   style={{ background: "#defff0" }}
@@ -120,10 +115,10 @@ class CustomLayout extends Component {
                       <MyTeachers /> <SuggestedTeachers />
                     </React.Fragment>
                   ) : (
-                    <React.Fragment>
-                      <MyFriends />
-                    </React.Fragment>
-                  )}
+                      <React.Fragment>
+                        <MyFriends />
+                      </React.Fragment>
+                    )}
                 </Sider>
               </React.Fragment>
             ) : null}
@@ -146,15 +141,9 @@ class CustomLayout extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     loading: state.loading,
-    error: state.error,
-    token: state.token,
-    username: state.username,
-    userId: state.userId,
-    is_student: state.is_student,
-    is_teacher: state.is_teacher
+    error: state.error
   };
 };
 
