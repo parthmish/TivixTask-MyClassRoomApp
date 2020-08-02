@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import MyProfileDetailComponent from "../components/MyProfileComponent";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class MyProfile extends React.Component {
@@ -69,7 +69,6 @@ class MyProfile extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     loading: state.loading,
     error: state.error,

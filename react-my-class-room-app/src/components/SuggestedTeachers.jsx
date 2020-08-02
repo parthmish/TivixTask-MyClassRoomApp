@@ -12,7 +12,7 @@ class SuggestedTeachers extends React.Component {
     // const dataID = this.props.match.params.dataID;
     axios.get(`http://localhost:8000/api/home/teachers/`).then(res => {
       this.setState({ data: res.data });
-      console.log(res.data);
+      // console.log(res.data);
     });
   }
 

@@ -1,9 +1,30 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from .models import HeadMaster, Teacher, Student, StudentTeacherThrough
 from .serializers import HeadMasterSerializer, TeacherSerializer, StudentSerializer, StudentTeacherThroughSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http import Http404
 
 # Create your views here.
+# User for profile details #myprofileview.jsx
+class TeacherViewSet(viewsets.ModelViewSet):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+##myclasslistview.jsx same class students
+class StudentClassView(APIView):
+    def get(self, request, pk, format=None):
+            request_student = Student.objects.get(pk=pk)
+            class_students = Student.objects.filter(grade=request_student.grade, section=request_student.section).exclude(pk=pk)
+            serializer = StudentSerializer(class_students, many=True)
+            return Response(serializer.data)
+
+
 """
 Student: 
     Student List View
@@ -35,19 +56,7 @@ Relations:
 class HeadMasterViewSet(viewsets.ModelViewSet):
     queryset = HeadMaster.objects.all()
     serializer_class = HeadMasterSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
-class TeacherViewSet(viewsets.ModelViewSet):
-    queryset = Teacher.objects.all()
-    serializer_class = TeacherSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
-class StudentViewSet(viewsets.ModelViewSet):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-    # permission_classes = [permissions.IsAuthenticated]
 
 class StudentTeacherThroughViewSet(viewsets.ModelViewSet):
     queryset = StudentTeacherThrough.objects.all()
     serializer_class = StudentTeacherThroughSerializer
-    # permission_classes = [permissions.IsAuthenticated]
