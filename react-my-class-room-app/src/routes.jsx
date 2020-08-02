@@ -9,7 +9,7 @@ const BaseRouter = () => {
   return (
     <div>
       <Route exact path="/class" component={DataList} />
-      <Route exact path="/profile/" component={MyProfile} />
+      <Route exact path="/profile" component={MyProfile} />
       <Route exact path="/profile/:dataID" component={DataDetail} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/signup" component={SignUp} />

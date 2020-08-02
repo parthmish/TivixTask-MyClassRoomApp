@@ -6,6 +6,7 @@ const initialState = {
   username: null,
   is_student: null,
   is_teacher: null,
+  is_headmaster: null,
   userId: null,
   error: null,
   loading: false
@@ -24,6 +25,7 @@ const authSuccess = (state, action) => {
     username: action.user.username,
     is_student: action.user.is_student,
     is_teacher: action.user.is_teacher,
+    is_headmaster: action.user.is_headmaster,
     userId: action.user.userId,
     error: null,
     loading: false

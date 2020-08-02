@@ -35,12 +35,12 @@ Relations:
 class HeadMasterViewSet(viewsets.ModelViewSet):
     queryset = HeadMaster.objects.all()
     serializer_class = HeadMasterSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 class TeacherViewSet(viewsets.ModelViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
@@ -50,4 +50,4 @@ class StudentViewSet(viewsets.ModelViewSet):
 class StudentTeacherThroughViewSet(viewsets.ModelViewSet):
     queryset = StudentTeacherThrough.objects.all()
     serializer_class = StudentTeacherThroughSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]

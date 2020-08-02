@@ -1,11 +1,6 @@
 import React from "react";
-import { List, Avatar, Space, Card, Descriptions } from "antd";
-import {
-  SmileOutlined,
-  LikeOutlined,
-  StarOutlined,
-  ArrowRightOutlined
-} from "@ant-design/icons";
+import { List, Space, Descriptions } from "antd";
+import { SmileOutlined, StarOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 // const listData = [];
