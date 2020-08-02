@@ -104,7 +104,11 @@ class CustomLayout extends Component {
                     <React.Fragment>
                       <StarredStudents /> <MyFriends />
                     </React.Fragment>
-                  ) : null}
+                  ) : (
+                    <React.Fragment>
+                      <StarredStudents />
+                    </React.Fragment>
+                  )}
                 </Sider>
                 <Sider
                   style={{ background: "#defff0" }}
@@ -115,7 +119,11 @@ class CustomLayout extends Component {
                     <React.Fragment>
                       <MyTeachers /> <SuggestedTeachers />
                     </React.Fragment>
-                  ) : null}
+                  ) : (
+                    <React.Fragment>
+                      <MyFriends />
+                    </React.Fragment>
+                  )}
                 </Sider>
               </React.Fragment>
             ) : null}
@@ -130,7 +138,7 @@ class CustomLayout extends Component {
             bottom: "0"
           }}
         >
-          Ant Design ©2018 Created by Ant UED
+          Ant Design ©2018 Created by Ant UED - Modified by - Parth
         </Footer>
       </Layout>
     );

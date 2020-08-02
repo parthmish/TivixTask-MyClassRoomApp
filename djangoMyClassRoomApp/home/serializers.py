@@ -15,7 +15,7 @@ class TeacherSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = Teacher
-        fields = ['pk', 'user', 'subject', 'student_obj']
+        fields = ['pk', 'user', 'subject']
 
 
 class StudentSerializer(serializers.ModelSerializer):

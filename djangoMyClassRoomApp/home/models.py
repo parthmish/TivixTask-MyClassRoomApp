@@ -52,9 +52,9 @@ class Student(models.Model):
         ('D', 'D'),
         ('E', 'E'),
     )
-    grade = models.CharField(verbose_name='Grade/Class', choices=grade_opt , max_length=10, blank=False)
-    section = models.CharField(verbose_name='Section', choices=section_opt, max_length=1, blank=False)
-    roll_number = models.IntegerField(verbose_name='Roll Number of Student', blank=False, null=False)
+    grade = models.CharField(verbose_name='Grade/Class', choices=grade_opt , max_length=10, blank=True)
+    section = models.CharField(verbose_name='Section', choices=section_opt, max_length=1, blank=True)
+    roll_number = models.IntegerField(verbose_name='Roll Number of Student', blank=True, null=True)
     teacher_obj = models.ManyToManyField(Teacher, verbose_name='My Teachers', through=StudentTeacherThrough)
 
     def __str__(self):

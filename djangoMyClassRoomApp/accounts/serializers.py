@@ -3,6 +3,7 @@ from rest_auth.registration.serializers import RegisterSerializer
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from .models import User, Profile
+from home.models import Student
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,6 +33,8 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.is_student = True
         user.save()
         adapter.save_user(request, user, self)
+        create_student = Student(user= user)
+        create_student.save()
         return user
 
 
@@ -55,7 +58,8 @@ class TokenSerializer(serializers.ModelSerializer):
             'is_headmaster': is_headmaster,
         }
 
-class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = Profile
         fields = ['user', 'birth_date', 'gender', 'phone_number', 'profile_image']

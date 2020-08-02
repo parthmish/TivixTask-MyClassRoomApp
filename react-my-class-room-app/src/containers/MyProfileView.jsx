@@ -5,9 +5,14 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class MyProfile extends React.Component {
-  state = {
-    dataDetailComponent: {}
-  };
+  constructor() {
+    super();
+    this.state = {
+      profileComponent: [],
+      studentModelProfileComponent: [],
+      teacherModelProfileComponent: []
+    };
+  }
 
   componentDidMount() {
     if (this.props.token !== undefined && this.props.token !== null) {
@@ -17,7 +22,35 @@ class MyProfile extends React.Component {
         )
         .then(res => {
           this.setState({
-            dataDetailComponent: res.data
+            profileComponent: res.data
+          });
+          console.log(res.data);
+        });
+    }
+    if (
+      this.props.token !== undefined &&
+      this.props.token !== null &&
+      this.props.is_student === true
+    ) {
+      axios
+        .get(`http://localhost:8000/api/home/students/${this.props.userId}/`)
+        .then(res => {
+          this.setState({
+            studentModelProfileComponent: res.data
+          });
+          console.log(res.data);
+        });
+    }
+    if (
+      this.props.token !== undefined &&
+      this.props.token !== null &&
+      this.props.is_teacher === true
+    ) {
+      axios
+        .get(`http://localhost:8000/api/home/teachers/${this.props.userId}/`)
+        .then(res => {
+          this.setState({
+            teacherModelProfileComponent: res.data
           });
           console.log(res.data);
         });
@@ -25,7 +58,13 @@ class MyProfile extends React.Component {
   }
 
   render() {
-    return <MyProfileDetailComponent data={this.state.dataDetailComponent} />;
+    return (
+      <MyProfileDetailComponent
+        profile={this.state.profileComponent}
+        classRoomData={this.state.studentModelProfileComponent}
+        teacherData={this.state.teacherModelProfileComponent}
+      />
+    );
   }
 }
 
@@ -35,10 +74,10 @@ const mapStateToProps = state => {
     loading: state.loading,
     error: state.error,
     token: state.token,
-    username: state.username,
     userId: state.userId,
     is_student: state.is_student,
-    is_teacher: state.is_teacher
+    is_teacher: state.is_teacher,
+    is_headmaster: state.is_headmaster
   };
 };
 
