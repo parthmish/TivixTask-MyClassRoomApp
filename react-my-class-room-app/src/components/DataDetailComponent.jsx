@@ -3,7 +3,7 @@ import { Descriptions, Avatar } from "antd";
 
 const DataDetailComponent = props => {
   return (
-    <Descriptions dataSource={props.data} title="Profile" bordered>
+    <Descriptions dataSource={props.data} title="User Profile" bordered>
       <Descriptions.Item label="Profile Picture">
         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></Avatar>
       </Descriptions.Item>

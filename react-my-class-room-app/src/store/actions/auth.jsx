@@ -51,6 +51,7 @@ export const authLogin = (username, password) => {
           userId: res.data.user,
           is_student: res.data.user_type.is_student,
           is_teacher: res.data.user_type.is_teacher,
+          is_headmaster: res.data.user_type.is_headmaster,
           expirationDate: new Date(new Date().getTime() + 4 * 3600 * 1000)
         };
         localStorage.setItem("user", JSON.stringify(user));

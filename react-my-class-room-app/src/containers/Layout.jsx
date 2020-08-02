@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import { Layout, Menu, PageHeader } from "antd";
+import { Layout, Menu } from "antd";
 import logo from "./logo.svg";
 import { Link, withRouter } from "react-router-dom";
 import * as actions from "../store/actions/auth";
 import { connect } from "react-redux";
+import StarredStudents from "../components/StarredStudents";
+import MyFriends from "../components/MyFriends";
+import MyTeachers from "../components/MyTeachers";
+import SuggestedTeachers from "../components/SuggestedTeachers";
 
 import {
   UserOutlined,
@@ -55,20 +59,20 @@ class CustomLayout extends Component {
                 <div>
                   <Menu mode="horizontal">
                     <Menu.Item key="class" icon={<TeamOutlined />}>
-                      <Link to="/class/">Class</Link>
+                      <Link to="/class">Class</Link>
                     </Menu.Item>
                     <Menu.Item key="profile" icon={<SettingOutlined />}>
-                      <Link to="/profile/">Profile</Link>
+                      <Link to="/profile">Profile</Link>
                     </Menu.Item>
                     <Menu.Item key="invitations" icon={<PlusOutlined />}>
-                      <Link to="/invitations/">Invitations</Link>
+                      <Link to="/invitations">Invitations</Link>
                     </Menu.Item>
                     <Menu.Item
                       key="logout"
                       onClick={this.props.logout}
                       icon={<LogoutOutlined />}
                     >
-                      <Link to="/login/">Logout</Link>
+                      <Link to="/login">Logout</Link>
                     </Menu.Item>
                   </Menu>
                   <br />
@@ -78,10 +82,10 @@ class CustomLayout extends Component {
                 <div>
                   <Menu mode="horizontal">
                     <Menu.Item key="login" icon={<LoginOutlined />}>
-                      <Link to="/login/">Login</Link>
+                      <Link to="/login">Login</Link>
                     </Menu.Item>
                     <Menu.Item key="signup" icon={<UserAddOutlined />}>
-                      <Link to="/signup/">Student SignUp</Link>
+                      <Link to="/signup">Student SignUp</Link>
                     </Menu.Item>
                   </Menu>
                   <br />
@@ -91,63 +95,35 @@ class CustomLayout extends Component {
             </Content>
             {this.props.isAuthenticated ? (
               <React.Fragment>
-                <Sider className="site-layout-background" width={250}>
-                  <Menu
-                    mode="inline"
-                    // defaultSelectedKeys={["1"]}
-                    defaultOpenKeys={["sub1"]}
-                    style={{ background: "#fff9e6", height: "100%" }}
-                  >
-                    <SubMenu
-                      key="sub1"
-                      icon={<StarOutlined />}
-                      title="Starred Students"
-                    >
-                      <Menu.Item key="1">option1</Menu.Item>
-                      <Menu.Item key="2">option2</Menu.Item>
-                      <Menu.Item key="3">option3</Menu.Item>
-                      <Menu.Item key="4">option4</Menu.Item>
-                    </SubMenu>
-                    <SubMenu
-                      key="sub12"
-                      icon={<SmileOutlined />}
-                      title="My Friends"
-                    >
-                      <Menu.Item key="1">option1</Menu.Item>
-                      <Menu.Item key="2">option2</Menu.Item>
-                      <Menu.Item key="3">option3</Menu.Item>
-                      <Menu.Item key="4">option4</Menu.Item>
-                    </SubMenu>
-                  </Menu>
+                <Sider
+                  style={{ background: "#fff9e6" }}
+                  className="site-layout-background"
+                  width={250}
+                >
+                  {this.props.is_student ? (
+                    <React.Fragment>
+                      <StarredStudents /> <MyFriends />
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <StarredStudents />
+                    </React.Fragment>
+                  )}
                 </Sider>
-                <Sider className="site-layout-background" width={250}>
-                  <Menu
-                    mode="inline"
-                    // defaultSelectedKeys={["1"]}
-                    defaultOpenKeys={["sub1"]}
-                    style={{ background: "#defff0", height: "100%" }}
-                  >
-                    <SubMenu
-                      key="sub1"
-                      icon={<UserOutlined />}
-                      title="My Teachers"
-                    >
-                      <Menu.Item key="5">option5</Menu.Item>
-                      <Menu.Item key="6">option6</Menu.Item>
-                      <Menu.Item key="7">option7</Menu.Item>
-                      <Menu.Item key="8">option8</Menu.Item>
-                    </SubMenu>
-                    <SubMenu
-                      key="sub2"
-                      icon={<UserAddOutlined />}
-                      title="Suggested Teachers"
-                    >
-                      <Menu.Item key="5">option5</Menu.Item>
-                      <Menu.Item key="6">option6</Menu.Item>
-                      <Menu.Item key="7">option7</Menu.Item>
-                      <Menu.Item key="8">option8</Menu.Item>
-                    </SubMenu>
-                  </Menu>
+                <Sider
+                  style={{ background: "#defff0" }}
+                  className="site-layout-background"
+                  width={250}
+                >
+                  {this.props.is_student ? (
+                    <React.Fragment>
+                      <MyTeachers /> <SuggestedTeachers />
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <MyFriends />
+                    </React.Fragment>
+                  )}
                 </Sider>
               </React.Fragment>
             ) : null}
@@ -158,12 +134,11 @@ class CustomLayout extends Component {
             textAlign: "center",
             padding: "20px 20px",
             position: "relative",
-            textAlign: "center",
             width: "100%",
             bottom: "0"
           }}
         >
-          Ant Design ©2018 Created by Ant UED
+          Ant Design ©2018 Created by Ant UED - Modified by - Parth
         </Footer>
       </Layout>
     );
