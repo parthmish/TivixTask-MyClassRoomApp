@@ -41,7 +41,7 @@ class MyProfileDetailComponent extends React.Component {
                 <React.Fragment>
                   <Divider orientation="left">My ClassRoom Data</Divider>
                   <Descriptions
-                    dataSource={this.props.profile}
+                    dataSource={this.props.classRoomData}
                     bordered
                     size="small"
                   >
@@ -62,7 +62,7 @@ class MyProfileDetailComponent extends React.Component {
                   <React.Fragment>
                     <Divider orientation="left">Teacher Data</Divider>
                     <Descriptions
-                      dataSource={this.props.profile}
+                      dataSource={this.props.teacherData}
                       bordered
                       size="small"
                     >

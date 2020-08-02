@@ -2,17 +2,15 @@ import React from "react";
 import axios from "axios";
 import { Menu } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { connect } from 'react-redux'
 
 const { SubMenu } = Menu;
-
 class MyTeachers extends React.Component {
   state = { data: [] };
 
   componentDidMount() {
-    // const dataID = this.props.match.params.dataID;
-    axios.get(`http://localhost:8000/api/home/teachers/`).then(res => {
+    axios.get(`http://localhost:8000/api/home/myteachers/${this.props.userId}`).then(res => {
       this.setState({ data: res.data });
-      console.log(res.data);
     });
   }
 
@@ -20,7 +18,6 @@ class MyTeachers extends React.Component {
     return (
       <Menu
         mode="inline"
-        // defaultSelectedKeys={["1"]}
         style={{
           background: "#defff0",
           height: "250px",
@@ -41,4 +38,12 @@ class MyTeachers extends React.Component {
   }
 }
 
-export default MyTeachers;
+const mapStateToProps = state => {
+  return {
+    loading: state.loading,
+    error: state.error,
+    userId: state.userId,
+  };
+};
+
+export default connect(mapStateToProps, null)(MyTeachers);
