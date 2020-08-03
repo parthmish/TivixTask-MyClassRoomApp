@@ -11,7 +11,6 @@ class ClassList extends React.Component {
     };
   }
 
-
   componentDidMount() {
     if (this.props.is_student) {
       axios.get(`http://localhost:8000/api/home/classroom/${this.props.userId}`).then(res => {
@@ -21,16 +20,15 @@ class ClassList extends React.Component {
       });
     }
     if (this.props.is_teacher) {
-      axios.get("http://localhost:8000/api/home/students/").then(res => {
+      axios.get(`http://localhost:8000/api/home/mystudents/${this.props.userId}`).then(res => {
         this.setState({
-          // classComponent: res.data
+          classComponent: res.data
         });
       });
     }
   }
 
   render() {
-    console.log(this.state.classComponent)
     return <ClassListComponents data={this.state.classComponent} />;
   }
 }

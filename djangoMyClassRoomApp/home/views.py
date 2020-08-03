@@ -54,9 +54,10 @@ class StarredStudentsClassView(APIView):
             
 class MyStudentsClassView(APIView):
     def get(self, request, pk, format=None):
-            request_student = Student.objects.get(pk=pk)
-            class_teachers = Teacher.objects.filter(student_obj=request_student)
-            serializer = TeacherSerializer(class_teachers, many=True)
+            request_teacher = Teacher.objects.get(pk=pk)
+            class_students = StudentTeacherThrough.objects.filter(teacher__user=request_teacher).values('student')
+            class_students_data = Student.objects.filter(user__in=class_students)
+            serializer = StudentSerializer(class_students_data, many=True)
             return Response(serializer.data)
 
 """

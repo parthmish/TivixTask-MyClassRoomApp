@@ -14,46 +14,85 @@ class ClassListComponents extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Divider orientation="left">My ClassMates</Divider>
-        <List
-          itemLayout="vertical"
-          size="small"
-          pagination={{
-            onChange: page => {
-              console.log(page);
-            },
-            pageSize: 3
-          }}
-          dataSource={this.props.data}
-          renderItem={item => (
-            <List.Item
-              key={item.pk}
-              actions={[
-                <IconText
-                  icon={StarOutlined}
-                  text="3"
-                  key="list-vertical-star-o"
-                />,
-                <IconText
-                  icon={SmileOutlined}
-                  text="7"
-                  key="list-vertical-like-o"
-                />
-              ]}
-            >
-              <Descriptions bordered>
-                <Descriptions.Item label="Name">
-                  <Link to={`/profile/${item.pk}`}>
-                    {item.user.toUpperCase()}
-                  </Link>{" "}
-                </Descriptions.Item>
-                <Descriptions.Item label="Roll Number">
-                  {item.roll_number}
-                </Descriptions.Item>
-              </Descriptions>
-            </List.Item>
-          )}
-        />
+        {this.props.is_student ? <React.Fragment>
+          <Divider orientation="left">My ClassMates</Divider>
+          <List
+            itemLayout="vertical"
+            size="small"
+            pagination={{
+              onChange: page => {
+                console.log(page);
+              },
+              pageSize: 3
+            }}
+            dataSource={this.props.data}
+            renderItem={item => (
+              <List.Item
+                key={item.pk}
+                actions={[
+                  <IconText
+                    icon={StarOutlined}
+                    text="3"
+                    key="list-vertical-star-o"
+                  />,
+                  <IconText
+                    icon={SmileOutlined}
+                    text="7"
+                    key="list-vertical-like-o"
+                  />
+                ]}
+              >
+                <Descriptions bordered>
+                  <Descriptions.Item label="Name">
+                    <Link to={`/profile/${item.pk}`}>
+                      {item.user.toUpperCase()}
+                    </Link>{" "}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="Roll Number">
+                    {item.roll_number}
+                  </Descriptions.Item>
+                </Descriptions>
+              </List.Item>
+            )}
+          />
+        </React.Fragment> : <React.Fragment>
+
+            <Divider orientation="left">My Students</Divider>
+            <List
+              itemLayout="vertical"
+              size="small"
+              pagination={{
+                onChange: page => {
+                  console.log(page);
+                },
+                pageSize: 3
+              }}
+              dataSource={this.props.data}
+              renderItem={item => (
+                <List.Item
+                  key={item.pk}
+                >
+                  <Descriptions bordered>
+                    <Descriptions.Item label="Name">
+                      <Link to={`/profile/${item.pk}`}>
+                        {item.user.toUpperCase()}
+                      </Link>{" "}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Roll Number">
+                      {item.roll_number}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Section">
+                      {item.section}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Class/Grade">
+                      {item.grade}
+                    </Descriptions.Item>
+                  </Descriptions>
+                </List.Item>
+              )}
+            />
+          </React.Fragment>}
+
       </React.Fragment>
     );
   }
