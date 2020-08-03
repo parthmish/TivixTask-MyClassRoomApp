@@ -1,9 +1,53 @@
 import React, { Component } from "react";
 import { Descriptions, Avatar, Divider, Button, Switch, Col, Row } from "antd";
 import { connect } from "react-redux";
-
+import axios from "axios";
+import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
 
 class UserProfileComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      actions: {}
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.is_teacher) {
+      this.setState({
+        actions: { "studentTeacherRelationShip": false, "studentStarred": false }
+      })
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.is_teacher) {
+      if (prevProps.modelStudentInfo.pk !== this.props.modelStudentInfo.pk) {
+        axios
+          .get(`http://localhost:8000/api/home/student-state-wrt-teacher/${this.props.modelStudentInfo.pk}/${this.props.userId}/`)
+          .then(res => {
+            if ((prevState.actions !== this.state.actions) || (prevProps.modelStudentInfo.pk !== this.props.modelStudentInfo.pk)) {
+              this.setState({
+                actions: res.data
+              });
+            }
+          });
+      }
+      if (prevState.actions !== this.state.actions) {
+        console.log(this.state.actions)
+      }
+    }
+  }
+
+  handleStarChange() {
+    console.log("change")
+  }
+  handleStudentChange() {
+    this.setState({
+      studentTeacherRelationShip: "false"
+    })
+    console.log("change")
+  }
   render() {
     return (
       <React.Fragment >
@@ -67,11 +111,15 @@ class UserProfileComponent extends Component {
           </Col>
           {this.props.is_student ? null
             : <React.Fragment> <Col className="gutter-row" span={6}>
-              Starred Student: <Switch size="large" />
+              Starred Student: <Switch size="large" checked={this.state.actions.studentStarred} checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />} onChange={this.handleStarChange} />
             </Col>
               <Col className="gutter-row" span={6}>
-                <Button type="danger">Deactivate Student</Button>
-              </Col></React.Fragment>
+                Teaching Student? : <Switch size="large" checked={this.state.actions.studentTeacherRelationShip} checkedChildren={<CheckOutlined />}
+                  unCheckedChildren={<CloseOutlined />} onChange={this.handleStudentChange} />
+              </Col>
+
+            </React.Fragment>
           }
         </Row>
       </React.Fragment >
@@ -83,6 +131,7 @@ class UserProfileComponent extends Component {
 
 const mapStateToProps = state => {
   return {
+    userId: state.userId,
     is_student: state.is_student,
     is_teacher: state.is_teacher,
     is_headmaster: state.is_headmaster

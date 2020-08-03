@@ -7,7 +7,9 @@ class ClassList extends React.Component {
   constructor() {
     super();
     this.state = {
-      classComponent: []
+      classComponent: [],
+      stars: [],
+      friends: []
     };
   }
 
@@ -16,6 +18,16 @@ class ClassList extends React.Component {
       axios.get(`http://localhost:8000/api/home/classroom/${this.props.userId}`).then(res => {
         this.setState({
           classComponent: res.data
+        });
+      });
+      axios.get(`http://localhost:8000/api/home/getstars/${this.props.userId}`).then(res => {
+        this.setState({
+          stars: res.data
+        });
+      });
+      axios.get(`http://localhost:8000/api/home/getfriends/${this.props.userId}`).then(res => {
+        this.setState({
+          starfriends: res.data
         });
       });
     }
@@ -29,7 +41,9 @@ class ClassList extends React.Component {
   }
 
   render() {
-    return <ClassListComponents data={this.state.classComponent} />;
+    var classComponentStars = (this.state.classComponent).map(x => Object.assign(x, (this.state.stars).find(y => y.pk === x.pk)));
+    console.log(classComponentStars)
+    return <ClassListComponents data={classComponentStars} />
   }
 }
 

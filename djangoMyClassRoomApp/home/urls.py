@@ -6,7 +6,9 @@ from home.views import (
     MyTeachersClassView,
     StarredStudentsClassView,
     SuggestedTeachersClassView,
-    MyStudentsClassView
+    MyStudentsClassView,
+    GetStarsClassView,
+    StudentStateWrtTeacherView
     )
 
 router = routers.DefaultRouter()
@@ -24,4 +26,6 @@ urlpatterns = [
     path('starredstudents/<str:slug>/<int:pk>', StarredStudentsClassView.as_view(), name='starred-students'),
     path('suggestedteachers/<int:pk>', SuggestedTeachersClassView.as_view(), name='suggested-teachers'),
     path('mystudents/<int:pk>', MyStudentsClassView.as_view(), name='my-students'),
+    path('getstars/<int:pk>', GetStarsClassView.as_view(), name='my-classmates-stars'),
+    path('student-state-wrt-teacher/<int:student>/<int:teacher>/', StudentStateWrtTeacherView.as_view(), name='student-state-wrt-teacher'),
 ]

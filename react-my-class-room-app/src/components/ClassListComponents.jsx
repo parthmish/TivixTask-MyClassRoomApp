@@ -12,10 +12,11 @@ const IconText = ({ icon, text }) => (
 );
 class ClassListComponents extends React.Component {
   render() {
+    console.log(this.props.data)
     return (
       <React.Fragment>
         {this.props.is_student ? <React.Fragment>
-          <Divider orientation="left">My ClassMates</Divider>
+          <Divider orientation="left">My ClassRoom</Divider>
           <List
             itemLayout="vertical"
             size="small"
@@ -32,7 +33,7 @@ class ClassListComponents extends React.Component {
                 actions={[
                   <IconText
                     icon={StarOutlined}
-                    text="3"
+                    text={item.stars === undefined ? 0 : item.stars}
                     key="list-vertical-star-o"
                   />,
                   <IconText
@@ -44,9 +45,9 @@ class ClassListComponents extends React.Component {
               >
                 <Descriptions bordered>
                   <Descriptions.Item label="Name">
-                    <Link to={`/profile/${item.pk}`}>
+                    {this.props.userId === item.pk ? <React.Fragment> {item.user.toUpperCase()} (Me) </React.Fragment> : <Link to={`/profile/${item.pk}`}>
                       {item.user.toUpperCase()}
-                    </Link>{" "}
+                    </Link>}
                   </Descriptions.Item>
                   <Descriptions.Item label="Roll Number">
                     {item.roll_number}
@@ -76,7 +77,7 @@ class ClassListComponents extends React.Component {
                     <Descriptions.Item label="Name">
                       <Link to={`/profile/${item.pk}`}>
                         {item.user.toUpperCase()}
-                      </Link>{" "}
+                      </Link>
                     </Descriptions.Item>
                     <Descriptions.Item label="Roll Number">
                       {item.roll_number}
@@ -100,6 +101,7 @@ class ClassListComponents extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    userId: state.userId,
     is_student: state.is_student,
     is_teacher: state.is_teacher,
     is_headmaster: state.is_headmaster
