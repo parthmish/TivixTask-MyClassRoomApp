@@ -15,11 +15,12 @@ class MyProfile extends React.Component {
   }
 
   componentDidMount() {
+    const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
+
     if (this.props.token !== undefined && this.props.token !== null) {
       axios
         .get(
-          `http://localhost:8000/api/accounts/profiles/${this.props.userId}/`
-        )
+          `http://localhost:8000/api/accounts/profiles/${this.props.userId}/`, tHeaders)
         .then(res => {
           this.setState({
             profileComponent: res.data
@@ -33,7 +34,7 @@ class MyProfile extends React.Component {
       this.props.is_student === true
     ) {
       axios
-        .get(`http://localhost:8000/api/home/students/${this.props.userId}/`)
+        .get(`http://localhost:8000/api/home/students/${this.props.userId}/`, tHeaders)
         .then(res => {
           this.setState({
             studentModelProfileComponent: res.data
@@ -47,7 +48,7 @@ class MyProfile extends React.Component {
       this.props.is_teacher === true
     ) {
       axios
-        .get(`http://localhost:8000/api/home/teachers/${this.props.userId}/`)
+        .get(`http://localhost:8000/api/home/teachers/${this.props.userId}/`, tHeaders)
         .then(res => {
           this.setState({
             teacherModelProfileComponent: res.data

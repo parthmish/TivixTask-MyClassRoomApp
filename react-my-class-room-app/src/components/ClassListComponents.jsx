@@ -102,6 +102,7 @@ class ClassListComponents extends React.Component {
 const mapStateToProps = state => {
   return {
     userId: state.userId,
+    token: state.token,
     is_student: state.is_student,
     is_teacher: state.is_teacher,
     is_headmaster: state.is_headmaster

@@ -21,10 +21,12 @@ class UserProfileComponent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
+
     if (this.props.is_teacher) {
       if (prevProps.modelStudentInfo.pk !== this.props.modelStudentInfo.pk) {
         axios
-          .get(`http://localhost:8000/api/home/student-state-wrt-teacher/${this.props.modelStudentInfo.pk}/${this.props.userId}/`)
+          .get(`http://localhost:8000/api/home/student-state-wrt-teacher/${this.props.modelStudentInfo.pk}/${this.props.userId}/`, tHeaders)
           .then(res => {
             if ((prevState.actions !== this.state.actions) || (prevProps.modelStudentInfo.pk !== this.props.modelStudentInfo.pk)) {
               this.setState({
@@ -134,7 +136,8 @@ const mapStateToProps = state => {
     userId: state.userId,
     is_student: state.is_student,
     is_teacher: state.is_teacher,
-    is_headmaster: state.is_headmaster
+    is_headmaster: state.is_headmaster,
+    token: state.token,
   };
 };
 

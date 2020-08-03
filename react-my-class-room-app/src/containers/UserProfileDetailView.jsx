@@ -11,18 +11,18 @@ class UserProfileDetail extends React.Component {
   };
 
   componentDidMount() {
+    const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
     const profileID = this.props.match.params.profileID;
     axios
       .get(
-        `http://localhost:8000/api/accounts/profiles/${profileID}/`
-      )
+        `http://localhost:8000/api/accounts/profiles/${profileID}/`, tHeaders)
       .then(res => {
         this.setState({
           userProfileComponent: res.data
         });
       });
     axios
-      .get(`http://localhost:8000/api/home/students/${profileID}/`)
+      .get(`http://localhost:8000/api/home/students/${profileID}/`, tHeaders)
       .then(res => {
         this.setState({
           modelStudentProfileDetailComponent: res.data
@@ -31,8 +31,7 @@ class UserProfileDetail extends React.Component {
     if (this.props.is_teacher === false) {
       axios
         .get(
-          `http://localhost:8000/api/home/teachers/${profileID}/`
-        )
+          `http://localhost:8000/api/home/teachers/${profileID}/`, tHeaders)
         .then(res => {
           this.setState({
             modelTeacherProfileDetailComponent: res.data
@@ -49,6 +48,7 @@ class UserProfileDetail extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    token: state.token,
     is_student: state.is_student,
     is_teacher: state.is_teacher,
     is_headmaster: state.is_headmaster
