@@ -97,8 +97,8 @@ const RegistrationForm = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (username, email, password1, password2) =>
-      dispatch(actions.authSignUp(username, email, password1, password2))
+    onAuth: (username, email, password1, password2, is_student = true) =>
+      dispatch(actions.authSignUp(username, email, password1, password2, is_student))
   };
 };
 

@@ -64,14 +64,15 @@ export const authLogin = (username, password) => {
   };
 };
 
-export const authSignUp = (username, email, password1, password2) => {
+export const authSignUp = (username, email, password1, password2, is_student) => {
   return dispatch => {
     dispatch(authStart());
     axios.post("http://localhost:8000/rest-auth/registration/", {
       username: username,
       email: email,
       password1: password1,
-      password2: password2
+      password2: password2,
+      is_student: is_student
     });
   };
 };
