@@ -30,6 +30,9 @@ class UserProfileComponent extends Component {
             }
           });
       }
+      if (prevState.actions !== this.state.actions) {
+        // console.log("DIDupdate", this.originalState.actions, this.state.actions)
+      }
     }
   }
 
@@ -41,6 +44,7 @@ class UserProfileComponent extends Component {
     if (this.state.actions.studentTeacherRelationShip === true) {
       this.setState({ actions: { "studentTeacherRelationShip": this.state.actions.studentTeacherRelationShip, "studentStarred": !(this.state.actions.studentStarred) } });
     }
+    // console.log("StarChanged", this.originalState.actions, this.state.actions)
   }
 
   handleStudentChange = () => {
@@ -50,8 +54,15 @@ class UserProfileComponent extends Component {
         "studentStarred": (!(this.state.actions.studentTeacherRelationShip) === false ? false : this.state.actions.studentStarred)
       }
     });
+    // console.log("Student Change", this.originalState.actions, this.state.actions)
   }
 
+  warn = () => {
+    message.warn('No changes...(Hint: Give a Star to Motivate Students) :)');
+  };
+  error = () => {
+    message.error('Something went wrong :( try again...');
+  };
   success = () => {
     message.success('Your Student-Teacher State is Saved!!');
   };
@@ -59,18 +70,20 @@ class UserProfileComponent extends Component {
   saveState = () => {
     const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
     if (this.props.is_teacher) {
-      console.log(this.originalState.actions, this.state.actions)
+      // console.log("Save state", this.originalState.actions, this.state.actions)
+      // Naive approach is used....value updated and page refreshed to get new chaged componenets rather updating parent component
       if (this.originalState.actions === this.state.actions) {
-        console.log("do nothing")
+        this.warn()
       }
       if (this.originalState.actions !== this.state.actions) {
         if (this.state.actions.studentTeacherRelationShip === false) {
           console.log("delete")
           axios.delete((`http://localhost:8000/api/home/student-state-wrt-teacher/${this.props.modelStudentInfo.pk}/${this.props.userId}/`),
-            this.state.actions, tHeaders)
+            tHeaders, this.state.actions)
             .then(res => {
               console.log(res.data)
             })
+            .catch(error => { this.error() });
         }
         if (this.originalState.actions.studentTeacherRelationShip === false) {
           if (this.state.actions.studentTeacherRelationShip === true) {
@@ -79,7 +92,9 @@ class UserProfileComponent extends Component {
               this.state.actions, tHeaders)
               .then(res => {
                 console.log(res.data)
+                this.success()
               })
+              .catch(error => { this.error() });
           }
         }
         if (this.originalState.actions.studentTeacherRelationShip === true) {
@@ -90,14 +105,14 @@ class UserProfileComponent extends Component {
               .then(res => {
                 console.log(res.data)
               })
+              .catch(error => { this.error() });
           }
         }
+        window.location.reload(false)
       }
-      this.success()
-      // window.location.reload(false);
-
     }
   }
+
   render() {
     return (
       <React.Fragment >

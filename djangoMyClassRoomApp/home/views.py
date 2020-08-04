@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from django.http import Http404
 from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework import status
 
 # Create your views here.
 class TeacherViewSet(viewsets.ModelViewSet):
@@ -94,44 +95,32 @@ class StudentStateWrtTeacherView(APIView):
     def put(self, request,  *args, **kwargs):
         pk_request_student = kwargs.get('student')
         pk_request_teacher = kwargs.get('teacher')
-        data = request.data
-        print(data, pk_request_student, pk_request_teacher)
-        action_json = {"method": "put"}
-        # try:
-        #     relation = StudentTeacherThrough.objects.get(teacher__user__id=pk_request_teacher, student__user__id=pk_request_student)
-        #     action_json = {"studentTeacherRelationShip":True, "studentStarred":relation.is_starred}
-        # except ObjectDoesNotExist:
-        #     relation = None
-        #     action_json = {"studentTeacherRelationShip":False, "studentStarred":False}
-        return Response(action_json)
+        data_json = request.data
+        data_json_update = {'student': pk_request_student, 'teacher': pk_request_teacher, 'is_starred':  data_json['studentStarred'], 'headmaster':23}
+        relation = StudentTeacherThrough.objects.get(teacher__user__id=pk_request_teacher, student__user__id=pk_request_student)
+        serializer = StudentTeacherThroughSerializer(relation, data=data_json_update)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     def post(self, request,  *args, **kwargs):
         pk_request_student = kwargs.get('student')
         pk_request_teacher = kwargs.get('teacher')
-        data = request.data
-        print(data, pk_request_student, pk_request_teacher)
-        action_json = {"method": "post"}
-        # try:
-        #     relation = StudentTeacherThrough.objects.get(teacher__user__id=pk_request_teacher, student__user__id=pk_request_student)
-        #     action_json = {"studentTeacherRelationShip":True, "studentStarred":relation.is_starred}
-        # except ObjectDoesNotExist:
-        #     relation = None
-        #     action_json = {"studentTeacherRelationShip":False, "studentStarred":False}
-        return Response(action_json)
+        data_json = request.data
+        data_json_update = {'student': pk_request_student, 'teacher': pk_request_teacher, 'is_starred':  data_json['studentStarred'], 'headmaster':23}
+        serializer = StudentTeacherThroughSerializer(data=data_json_update)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request,  *args, **kwargs):
         pk_request_student = kwargs.get('student')
         pk_request_teacher = kwargs.get('teacher')
-        data = request.data
-        print(data, pk_request_student, pk_request_teacher)
-        action_json = {"method": "delete"}
-        # try:
-        #     relation = StudentTeacherThrough.objects.get(teacher__user__id=pk_request_teacher, student__user__id=pk_request_student)
-        #     action_json = {"studentTeacherRelationShip":True, "studentStarred":relation.is_starred}
-        # except ObjectDoesNotExist:
-        #     relation = None
-        #     action_json = {"studentTeacherRelationShip":False, "studentStarred":False}
-        return Response(action_json)
+        relation = StudentTeacherThrough.objects.get(teacher__user__id=pk_request_teacher, student__user__id=pk_request_student)
+        relation.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
