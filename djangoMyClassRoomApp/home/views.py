@@ -90,31 +90,49 @@ class StudentStateWrtTeacherView(APIView):
             relation = None
             action_json = {"studentTeacherRelationShip":False, "studentStarred":False}
         return Response(action_json)
-"""
-Student: 
-    Student List View
-    Student Create View
-    Student Edit View
-    Student Delete View
 
-Teacher: 
-    Teacher List View
-    Teacher Create View
-    Teacher Edit View
-    Teacher Delete View
+    def put(self, request,  *args, **kwargs):
+        pk_request_student = kwargs.get('student')
+        pk_request_teacher = kwargs.get('teacher')
+        data = request.data
+        print(data, pk_request_student, pk_request_teacher)
+        action_json = {"method": "put"}
+        # try:
+        #     relation = StudentTeacherThrough.objects.get(teacher__user__id=pk_request_teacher, student__user__id=pk_request_student)
+        #     action_json = {"studentTeacherRelationShip":True, "studentStarred":relation.is_starred}
+        # except ObjectDoesNotExist:
+        #     relation = None
+        #     action_json = {"studentTeacherRelationShip":False, "studentStarred":False}
+        return Response(action_json)
+        
+    def post(self, request,  *args, **kwargs):
+        pk_request_student = kwargs.get('student')
+        pk_request_teacher = kwargs.get('teacher')
+        data = request.data
+        print(data, pk_request_student, pk_request_teacher)
+        action_json = {"method": "post"}
+        # try:
+        #     relation = StudentTeacherThrough.objects.get(teacher__user__id=pk_request_teacher, student__user__id=pk_request_student)
+        #     action_json = {"studentTeacherRelationShip":True, "studentStarred":relation.is_starred}
+        # except ObjectDoesNotExist:
+        #     relation = None
+        #     action_json = {"studentTeacherRelationShip":False, "studentStarred":False}
+        return Response(action_json)
 
-Relations:
-    (Use APIView)
-    StudentTeacher Through List View 
-    StudentTeacher Through Create View 
-    StudentTeacher Through Edit View 
-    StudentTeacher Through Delete View 
-    
-    Friends List View 
-    Friends Create View 
-    Friends Edit View 
-    Friends Delete View 
-"""
+    def delete(self, request,  *args, **kwargs):
+        pk_request_student = kwargs.get('student')
+        pk_request_teacher = kwargs.get('teacher')
+        data = request.data
+        print(data, pk_request_student, pk_request_teacher)
+        action_json = {"method": "delete"}
+        # try:
+        #     relation = StudentTeacherThrough.objects.get(teacher__user__id=pk_request_teacher, student__user__id=pk_request_student)
+        #     action_json = {"studentTeacherRelationShip":True, "studentStarred":relation.is_starred}
+        # except ObjectDoesNotExist:
+        #     relation = None
+        #     action_json = {"studentTeacherRelationShip":False, "studentStarred":False}
+        return Response(action_json)
+
 
 
 #################################################### Model Viewset ^^^ Above make Types of views required...

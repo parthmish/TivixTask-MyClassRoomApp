@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Descriptions, Avatar, Divider, Button, Switch, Col, Row } from "antd";
+import { Descriptions, Avatar, Divider, Button, Switch, Col, Row, message } from "antd";
 import { connect } from "react-redux";
 import axios from "axios";
 import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
@@ -7,22 +7,16 @@ import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
 class UserProfileComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      actions: {}
+    this.originalState = {
+      actions: { "studentTeacherRelationShip": false, "studentStarred": false }
     }
-  }
-
-  componentDidMount() {
-    if (this.props.is_teacher) {
-      this.setState({
-        actions: { "studentTeacherRelationShip": false, "studentStarred": false }
-      })
+    this.state = {
+      actions: { "studentTeacherRelationShip": false, "studentStarred": false }
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
-
     if (this.props.is_teacher) {
       if (prevProps.modelStudentInfo.pk !== this.props.modelStudentInfo.pk) {
         axios
@@ -32,23 +26,77 @@ class UserProfileComponent extends Component {
               this.setState({
                 actions: res.data
               });
+              this.originalState.actions = this.state.actions
             }
           });
-      }
-      if (prevState.actions !== this.state.actions) {
-        console.log(this.state.actions)
       }
     }
   }
 
-  handleStarChange() {
-    console.log("change")
+
+  handleStarChange = () => {
+    if (this.state.actions.studentTeacherRelationShip === false) {
+      this.setState({ actions: { "studentTeacherRelationShip": this.state.actions.studentTeacherRelationShip, "studentStarred": false } });
+    }
+    if (this.state.actions.studentTeacherRelationShip === true) {
+      this.setState({ actions: { "studentTeacherRelationShip": this.state.actions.studentTeacherRelationShip, "studentStarred": !(this.state.actions.studentStarred) } });
+    }
   }
-  handleStudentChange() {
+
+  handleStudentChange = () => {
     this.setState({
-      studentTeacherRelationShip: "false"
-    })
-    console.log("change")
+      actions: {
+        "studentTeacherRelationShip": !(this.state.actions.studentTeacherRelationShip),
+        "studentStarred": (!(this.state.actions.studentTeacherRelationShip) === false ? false : this.state.actions.studentStarred)
+      }
+    });
+  }
+
+  success = () => {
+    message.success('Your Student-Teacher State is Saved!!');
+  };
+
+  saveState = () => {
+    const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
+    if (this.props.is_teacher) {
+      console.log(this.originalState.actions, this.state.actions)
+      if (this.originalState.actions === this.state.actions) {
+        console.log("do nothing")
+      }
+      if (this.originalState.actions !== this.state.actions) {
+        if (this.state.actions.studentTeacherRelationShip === false) {
+          console.log("delete")
+          axios.delete((`http://localhost:8000/api/home/student-state-wrt-teacher/${this.props.modelStudentInfo.pk}/${this.props.userId}/`),
+            this.state.actions, tHeaders)
+            .then(res => {
+              console.log(res.data)
+            })
+        }
+        if (this.originalState.actions.studentTeacherRelationShip === false) {
+          if (this.state.actions.studentTeacherRelationShip === true) {
+            console.log("create new")
+            axios.post((`http://localhost:8000/api/home/student-state-wrt-teacher/${this.props.modelStudentInfo.pk}/${this.props.userId}/`),
+              this.state.actions, tHeaders)
+              .then(res => {
+                console.log(res.data)
+              })
+          }
+        }
+        if (this.originalState.actions.studentTeacherRelationShip === true) {
+          if (this.state.actions.studentTeacherRelationShip === true) {
+            console.log("put starred")
+            axios.put((`http://localhost:8000/api/home/student-state-wrt-teacher/${this.props.modelStudentInfo.pk}/${this.props.userId}/`),
+              this.state.actions, tHeaders)
+              .then(res => {
+                console.log(res.data)
+              })
+          }
+        }
+      }
+      this.success()
+      // window.location.reload(false);
+
+    }
   }
   render() {
     return (
@@ -103,33 +151,36 @@ class UserProfileComponent extends Component {
           </Descriptions.Item>
           <Descriptions.Item label="Mobile Number">
             {this.props.userInfo.phone_number}
+
           </Descriptions.Item>
         </Descriptions>
 
-        <Divider orientation="left">Actions</Divider>
-        <Row>
-          <Col className="gutter-row" span={6}>
-            <Button type="primary">Request Friendship</Button>
-          </Col>
-          {this.props.is_student ? null
-            : <React.Fragment> <Col className="gutter-row" span={6}>
-              Starred Student: <Switch size="large" checked={this.state.actions.studentStarred} checkedChildren={<CheckOutlined />}
-                unCheckedChildren={<CloseOutlined />} onChange={this.handleStarChange} />
-            </Col>
-              <Col className="gutter-row" span={6}>
-                Teaching Student? : <Switch size="large" checked={this.state.actions.studentTeacherRelationShip} checkedChildren={<CheckOutlined />}
-                  unCheckedChildren={<CloseOutlined />} onChange={this.handleStudentChange} />
-              </Col>
+        <Divider orientation="left ">Actions</Divider>
 
-            </React.Fragment>
-          }
-        </Row>
+        {this.props.is_student ? null
+          : <React.Fragment>   <div className="site-card-border-less-wrapper"><Row> <Col className="gutter-row" span={6}>
+            Starred Student: <Switch size="large" checked={this.state.actions.studentStarred} checkedChildren={<CheckOutlined />}
+              unCheckedChildren={<CloseOutlined />} onClick={this.handleStarChange} />
+          </Col>
+            <Col className="gutter-row" span={6}>
+              Teaching Student? : <Switch size="large" checked={this.state.actions.studentTeacherRelationShip} checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />} onClick={this.handleStudentChange} />
+            </Col>
+            <Col className="gutter-row" span={6}>
+              <Button onClick={this.saveState}>Confirm Changes</Button>
+            </Col>
+          </Row>
+          </div>
+          </React.Fragment>
+        }
+        <Divider orientation="left">Friendship</Divider>
+        <Col className="gutter-row" span={6}>
+          <Button type="primary">Request Friendship</Button>
+        </Col>
       </React.Fragment >
     );
   }
-
 };
-
 
 const mapStateToProps = state => {
   return {

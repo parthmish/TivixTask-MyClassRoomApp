@@ -45,7 +45,7 @@ class CustomLayout extends Component {
           >
             <Content
               style={{
-                background: "#fafffe",
+                background: "#fcfcf0",
                 padding: "24px  24px",
                 height: "100%",
                 minHeight: 500
