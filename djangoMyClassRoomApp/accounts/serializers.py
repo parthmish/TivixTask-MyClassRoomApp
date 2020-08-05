@@ -11,7 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('email', 'username', 'password', 'is_student', 'is_teacher', 'is_headmaster')
 
-
 class CustomRegisterSerializer(RegisterSerializer):
 
     class Meta:
@@ -68,12 +67,19 @@ class TokenSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.username', read_only=True)
-    # profile_image_url = serializers.SerializerMethodField('get_image_url')
+    pk = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
     class Meta:
         model = Profile
         fields = ['pk','user', 'birth_date', 'gender', 'phone_number', 'profile_image']
         read_only_fields = ['pk']
-
-    # def get_image_url(self, obj):
-    #     print(obj.profile_image.url)
-    #     return request.build_absolute_uri(obj.profile_image)
+        
+    def update(self, instance, validated_data):
+        print("Im here")
+        instance.user = validated_data.get('user', instance.user)
+        instance.birth_date = validated_data.get('birth_date', instance.birth_date)
+        instance.gender = validated_data.get('gender', instance.gender)
+        instance.phone_number = validated_data.get('phone_number', instance.phone_number)
+        instance.profile_image = validated_data.get('profile_image', instance.profile_image)
+        instance.save()
+        return instance

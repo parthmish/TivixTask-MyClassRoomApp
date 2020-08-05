@@ -25,7 +25,9 @@ class MyProfile extends React.Component {
           this.setState({
             profileComponent: res.data
           });
-          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err)
         });
     }
     if (
@@ -39,7 +41,9 @@ class MyProfile extends React.Component {
           this.setState({
             studentModelProfileComponent: res.data
           });
-          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err)
         });
     }
     if (
@@ -53,7 +57,9 @@ class MyProfile extends React.Component {
           this.setState({
             teacherModelProfileComponent: res.data
           });
-          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err)
         });
     }
   }

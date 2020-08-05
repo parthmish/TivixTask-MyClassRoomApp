@@ -17,7 +17,8 @@ const HeadmasterClassList = (props) => {
     return (
         <React.Fragment>
             <Divider orientation="left">Create Teacher</Divider>
-            <Form name="register" onFinish={onFinish}>
+            <Form name="register" labelCol={{ span: 4 }}
+                wrapperCol={{ span: 14 }} onFinish={onFinish}>
                 <Form.Item
                     name="username"
                     label="Username"

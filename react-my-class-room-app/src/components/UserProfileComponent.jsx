@@ -113,6 +113,10 @@ class UserProfileComponent extends Component {
     }
   }
 
+  raiseFriendship = () => {
+    message.error("This feature is not avialable :(!!")
+  }
+
   render() {
     return (
       <React.Fragment >
@@ -170,28 +174,27 @@ class UserProfileComponent extends Component {
           </Descriptions.Item>
         </Descriptions>
 
-
-        {this.props.is_student ? null
-          : <React.Fragment>
-            <Divider orientation="left ">Actions</Divider>
-            <div className="site-card-border-less-wrapper"><Row> <Col className="gutter-row" span={6}>
-              Starred Student: <Switch size="large" checked={this.state.actions.studentStarred} checkedChildren={<CheckOutlined />}
-                unCheckedChildren={<CloseOutlined />} onClick={this.handleStarChange} />
+        {this.props.is_teacher ? <React.Fragment>
+          <Divider orientation="left ">Actions</Divider>
+          <div className="site-card-border-less-wrapper"><Row> <Col className="gutter-row" span={6}>
+            Starred Student: <Switch size="large" checked={this.state.actions.studentStarred} checkedChildren={<CheckOutlined />}
+              unCheckedChildren={<CloseOutlined />} onClick={this.handleStarChange} />
+          </Col>
+            <Col className="gutter-row" span={6}>
+              Teaching Student? : <Switch size="large" checked={this.state.actions.studentTeacherRelationShip} checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />} onClick={this.handleStudentChange} />
             </Col>
-              <Col className="gutter-row" span={6}>
-                Teaching Student? : <Switch size="large" checked={this.state.actions.studentTeacherRelationShip} checkedChildren={<CheckOutlined />}
-                  unCheckedChildren={<CloseOutlined />} onClick={this.handleStudentChange} />
-              </Col>
-              <Col className="gutter-row" span={6}>
-                <Button onClick={this.saveState}>Confirm Changes</Button>
-              </Col>
-            </Row>
-            </div>
-          </React.Fragment>
+            <Col className="gutter-row" span={6}>
+              <Button onClick={this.saveState}>Confirm Changes</Button>
+            </Col>
+          </Row>
+          </div>
+        </React.Fragment>
+          : null
         }
         <Divider orientation="left">Friendship</Divider>
         <Col className="gutter-row" span={6}>
-          <Button type="primary">Request Friendship</Button>
+          <Button type="primary" onClick={this.raiseFriendship}>Request Friendship</Button>
         </Col>
       </React.Fragment >
     );

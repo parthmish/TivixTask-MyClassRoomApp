@@ -20,6 +20,9 @@ class UserProfileDetail extends React.Component {
         this.setState({
           userProfileComponent: res.data
         });
+      })
+      .catch(err => {
+        console.log(err)
       });
     axios
       .get(`http://localhost:8000/api/home/students/${profileID}/`, tHeaders)
@@ -27,6 +30,9 @@ class UserProfileDetail extends React.Component {
         this.setState({
           modelStudentProfileDetailComponent: res.data
         });
+      })
+      .catch(err => {
+        console.log(err)
       });
     if (this.props.is_teacher === false) {
       axios
@@ -36,6 +42,9 @@ class UserProfileDetail extends React.Component {
           this.setState({
             modelTeacherProfileDetailComponent: res.data
           });
+        })
+        .catch(err => {
+          console.log(err)
         });
     }
   }

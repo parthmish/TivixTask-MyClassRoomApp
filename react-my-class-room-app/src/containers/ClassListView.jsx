@@ -16,28 +16,40 @@ class ClassList extends React.Component {
   componentDidMount() {
     const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
     if (this.props.is_student) {
-      axios.get(`http://localhost:8000/api/home/classroom/${this.props.userId}`, tHeaders).then(res => {
-        this.setState({
-          classComponent: res.data
+      axios.get(`http://localhost:8000/api/home/classroom/${this.props.userId}`, tHeaders)
+        .then(res => {
+          this.setState({
+            classComponent: res.data
+          });
+        })
+        .catch(err => {
+          console.log(err)
         });
-      });
-      axios.get(`http://localhost:8000/api/home/get-stars/${this.props.userId}`, tHeaders).then(res => {
-        this.setState({
-          stars: res.data
+      axios.get(`http://localhost:8000/api/home/get-stars/${this.props.userId}`, tHeaders)
+        .then(res => {
+          this.setState({
+            stars: res.data
+          });
+        })
+        .catch(err => {
+          console.log(err)
         });
-      });
-      axios.get(`http://localhost:8000/api/home/get-friends/${this.props.userId}`, tHeaders).then(res => {
-        this.setState({
-          starfriends: res.data
-        });
-      });
+      // axios.get(`http://localhost:8000/api/home/get-friends/${this.props.userId}`, tHeaders).then(res => {
+      //   this.setState({
+      //     starfriends: res.data
+      //   });
+      // });
     }
     if (this.props.is_teacher) {
-      axios.get(`http://localhost:8000/api/home/my-students/${this.props.userId}`, tHeaders).then(res => {
-        this.setState({
-          classComponent: res.data
+      axios.get(`http://localhost:8000/api/home/my-students/${this.props.userId}`, tHeaders)
+        .then(res => {
+          this.setState({
+            classComponent: res.data
+          });
+        })
+        .catch(err => {
+          console.log(err)
         });
-      });
     }
   }
 
