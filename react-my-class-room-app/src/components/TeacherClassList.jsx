@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Space, Descriptions, Divider } from "antd";
+import { List, Descriptions, Divider } from "antd";
 import { Link } from "react-router-dom";
 
 const TeacherClassList = (props) => {

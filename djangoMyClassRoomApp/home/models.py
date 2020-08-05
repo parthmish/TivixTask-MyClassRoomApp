@@ -59,3 +59,6 @@ class Student(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def nameFile(instance, filename):
+        return '/'.join(['images', str(instance.name), filename])

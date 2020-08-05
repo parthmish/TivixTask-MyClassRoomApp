@@ -1,6 +1,8 @@
 import React from "react";
-import { Descriptions, Avatar, Divider } from "antd";
+import { Descriptions, Avatar, Divider, Button } from "antd";
+import { EditOutlined } from '@ant-design/icons';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 
 class MyProfileDetailComponent extends React.Component {
   render() {
@@ -9,7 +11,7 @@ class MyProfileDetailComponent extends React.Component {
         {this.props.isAuthenticated ? (
           <React.Fragment>
             <div>
-              <Divider orientation="left">My Profile</Divider>
+              <Divider orientation="left">My Profile <Link to={`/profile/edit/${this.props.profile.pk}`}><Button icon={<EditOutlined />} size="small" /></Link></Divider>
               <Descriptions
                 dataSource={this.props.profile}
                 bordered

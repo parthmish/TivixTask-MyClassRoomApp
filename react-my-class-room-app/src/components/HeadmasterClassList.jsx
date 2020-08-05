@@ -1,23 +1,22 @@
 import React from "react";
-import { Form, Input, Button, Divider } from "antd";
+import { Form, Input, Button, Divider, message } from "antd";
 import * as actions from "../store/actions/auth";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 const HeadmasterClassList = (props) => {
     const onFinish = values => {
-        console.log("Received values of form: ", values);
         props.onAuth(
             values.username,
             values.email,
             values.password1,
             values.password2
         );
+        message.success("Teacher create", 1)
+        window.location.reload(false)
     };
     return (
         <React.Fragment>
             <Divider orientation="left">Create Teacher</Divider>
-
             <Form name="register" onFinish={onFinish}>
                 <Form.Item
                     name="username"

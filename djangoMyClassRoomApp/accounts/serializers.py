@@ -68,6 +68,12 @@ class TokenSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.username', read_only=True)
+    # profile_image_url = serializers.SerializerMethodField('get_image_url')
     class Meta:
         model = Profile
-        fields = ['user', 'birth_date', 'gender', 'phone_number', 'profile_image']
+        fields = ['pk','user', 'birth_date', 'gender', 'phone_number', 'profile_image']
+        read_only_fields = ['pk']
+
+    # def get_image_url(self, obj):
+    #     print(obj.profile_image.url)
+    #     return request.build_absolute_uri(obj.profile_image)
