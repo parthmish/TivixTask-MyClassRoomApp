@@ -8,6 +8,7 @@ import StarredStudents from "../components/StarredStudents";
 import MyFriends from "../components/MyFriends";
 import MyTeachers from "../components/MyTeachers";
 import SuggestedTeachers from "../components/SuggestedTeachers";
+import AllStudents from "../components/AllStudents";
 import {
   TeamOutlined,
   LogoutOutlined,
@@ -44,7 +45,7 @@ class CustomLayout extends Component {
           >
             <Content
               style={{
-                background: "#fafffe",
+                background: "#fcfcf0",
                 padding: "24px  24px",
                 height: "100%",
                 minHeight: 500
@@ -101,7 +102,7 @@ class CustomLayout extends Component {
                     </React.Fragment>
                   ) : (
                       <React.Fragment>
-                        <StarredStudents />
+                        <StarredStudents /><AllStudents />
                       </React.Fragment>
                     )}
                 </Sider>

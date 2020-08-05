@@ -42,7 +42,6 @@ class Student(models.Model):
         ('7th grade', '7th grade'),
         ('8th grade', '8th grade'),
         ('9th grade', '9th grade'),
-        ('9th grade', '9th grade'),
         ('10th grade', '10th grade'),
     )
     section_opt = (
@@ -59,3 +58,6 @@ class Student(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def nameFile(instance, filename):
+        return '/'.join(['images', str(instance.name), filename])

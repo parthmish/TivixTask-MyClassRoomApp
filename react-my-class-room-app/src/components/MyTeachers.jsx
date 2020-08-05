@@ -9,9 +9,11 @@ class MyTeachers extends React.Component {
   state = { data: [] };
 
   componentDidMount() {
-    axios.get(`http://localhost:8000/api/home/myteachers/${this.props.userId}`).then(res => {
-      this.setState({ data: res.data });
-    });
+    const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
+    axios.get(`http://localhost:8000/api/home/myteachers/${this.props.userId}`, tHeaders)
+      .then(res => {
+        this.setState({ data: res.data });
+      });
   }
 
   render() {
@@ -40,6 +42,7 @@ class MyTeachers extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    token: state.token,
     loading: state.loading,
     error: state.error,
     userId: state.userId,
