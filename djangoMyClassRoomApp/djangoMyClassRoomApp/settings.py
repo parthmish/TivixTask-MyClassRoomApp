@@ -25,9 +25,9 @@ SECRET_KEY = '*!_&=%2^ag!!$l$#e09=akkygo+7q43rw-0&(_vzn0@#+x=u4n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost',]
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
-# CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ['localhost','127.0.0.1', '192.168.99.100']
+# CORS_ORIGIN_WHITELIST = ["http://localhost:3000", 'http://172.18.0.3/']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # User Model Extended
 AUTH_USER_MODEL = 'accounts.User'
