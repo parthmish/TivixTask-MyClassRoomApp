@@ -43,7 +43,6 @@ class ClassList extends React.Component {
 
   render() {
     var classComponentStars = (this.state.classComponent).map(x => Object.assign(x, (this.state.stars).find(y => y.pk === x.pk)));
-    console.log(classComponentStars)
     return <ClassListComponents data={classComponentStars} />
   }
 }

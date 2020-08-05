@@ -6,6 +6,8 @@ import UserProfileDetail from "./containers/UserProfileDetailView";
 import Login from "./containers/Login";
 import SignUp from "./containers/SignUp";
 import EditMyProfileForm from "./components/EditMyProfileForm";
+import EditStudentProfileForm from "./components/EditStudentProfileForm";
+import EditTeacherProfileForm from "./components/EditTeacherProfileForm";
 
 const BaseRouter = (props) => {
   return (
@@ -13,6 +15,8 @@ const BaseRouter = (props) => {
       {props.isAuthenticated ? <React.Fragment>  <Route exact path="/class" component={ClassList} />
         <Route exact path="/profile" component={MyProfile} />
         <Route exact path="/profile/edit/:profileID" component={EditMyProfileForm} />
+        <Route exact path="/students/edit/:profileID" component={EditStudentProfileForm} />
+        <Route exact path="/teachers/edit/:profileID" component={EditTeacherProfileForm} />
         <Route exact path="/profile/:profileID" component={UserProfileDetail} /> </React.Fragment> :
         <React.Fragment>
           <Route exact path="/login" component={Login} />

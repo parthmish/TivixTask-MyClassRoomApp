@@ -41,7 +41,7 @@ class MyProfileDetailComponent extends React.Component {
             <div>
               {this.props.is_student ? (
                 <React.Fragment>
-                  <Divider orientation="left">My ClassRoom Data</Divider>
+                  <Divider orientation="left">My ClassRoom Data <Link to={`/students/edit/${this.props.profile.pk}`}><Button icon={<EditOutlined />} size="small" /></Link></Divider>
                   <Descriptions
                     dataSource={this.props.classRoomData}
                     bordered
@@ -62,7 +62,7 @@ class MyProfileDetailComponent extends React.Component {
               {this.props.is_teacher ? (
                 <React.Fragment>
                   <React.Fragment>
-                    <Divider orientation="left">Teacher Data</Divider>
+                    <Divider orientation="left">Teacher Data <Link to={`/teachers/edit/${this.props.profile.pk}`}><Button icon={<EditOutlined />} size="small" /></Link></Divider>
                     <Descriptions
                       dataSource={this.props.teacherData}
                       bordered

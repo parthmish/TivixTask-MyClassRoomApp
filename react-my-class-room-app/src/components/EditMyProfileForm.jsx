@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Divider, Button, } from "antd";
+import { Divider, Button, } from "antd";
 import moment from 'moment';
 import {
     Form,
@@ -30,7 +30,7 @@ class EditMyProfileForm extends React.Component {
             .get(
                 `http://localhost:8000/api/accounts/profiles/${profileID}/`, tHeaders)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({
                     profileComponent: res.data,
                 });
@@ -123,9 +123,6 @@ class EditMyProfileForm extends React.Component {
 const mapStateToProps = state => {
     return {
         token: state.token,
-        is_student: state.is_student,
-        is_teacher: state.is_teacher,
-        is_headmaster: state.is_headmaster
     };
 };
 

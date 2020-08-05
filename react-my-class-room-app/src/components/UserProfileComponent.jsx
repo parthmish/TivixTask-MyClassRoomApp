@@ -170,22 +170,23 @@ class UserProfileComponent extends Component {
           </Descriptions.Item>
         </Descriptions>
 
-        <Divider orientation="left ">Actions</Divider>
 
         {this.props.is_student ? null
-          : <React.Fragment>   <div className="site-card-border-less-wrapper"><Row> <Col className="gutter-row" span={6}>
-            Starred Student: <Switch size="large" checked={this.state.actions.studentStarred} checkedChildren={<CheckOutlined />}
-              unCheckedChildren={<CloseOutlined />} onClick={this.handleStarChange} />
-          </Col>
-            <Col className="gutter-row" span={6}>
-              Teaching Student? : <Switch size="large" checked={this.state.actions.studentTeacherRelationShip} checkedChildren={<CheckOutlined />}
-                unCheckedChildren={<CloseOutlined />} onClick={this.handleStudentChange} />
+          : <React.Fragment>
+            <Divider orientation="left ">Actions</Divider>
+            <div className="site-card-border-less-wrapper"><Row> <Col className="gutter-row" span={6}>
+              Starred Student: <Switch size="large" checked={this.state.actions.studentStarred} checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />} onClick={this.handleStarChange} />
             </Col>
-            <Col className="gutter-row" span={6}>
-              <Button onClick={this.saveState}>Confirm Changes</Button>
-            </Col>
-          </Row>
-          </div>
+              <Col className="gutter-row" span={6}>
+                Teaching Student? : <Switch size="large" checked={this.state.actions.studentTeacherRelationShip} checkedChildren={<CheckOutlined />}
+                  unCheckedChildren={<CloseOutlined />} onClick={this.handleStudentChange} />
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Button onClick={this.saveState}>Confirm Changes</Button>
+              </Col>
+            </Row>
+            </div>
           </React.Fragment>
         }
         <Divider orientation="left">Friendship</Divider>
