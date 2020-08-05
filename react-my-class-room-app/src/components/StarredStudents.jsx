@@ -6,20 +6,40 @@ import { connect } from 'react-redux'
 const { SubMenu } = Menu;
 
 class StarredStudents extends React.Component {
-  state = { data: [] };
+  constructor(props) {
+    super(props);
+    this.state = { data: [] };
+  }
 
   componentDidMount() {
     const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
 
     if (this.props.is_student) {
-      axios.get(`http://localhost:8000/api/home/starredstudents/studentprofile/${this.props.userId}`, tHeaders).then(res => {
-        this.setState({ data: res.data });
-      });
+      axios.get(`http://localhost:8000/api/home/starredstudents/studentprofile/${this.props.userId}`, tHeaders)
+        .then(res => {
+          this.setState({ data: res.data });
+        })
+        .catch(err => {
+          console.log(err)
+        });
     }
     if (this.props.is_teacher) {
-      axios.get(`http://localhost:8000/api/home/starredstudents/teacherprofile/${this.props.userId}`, tHeaders).then(res => {
-        this.setState({ data: res.data });
-      });
+      axios.get(`http://localhost:8000/api/home/starredstudents/teacherprofile/${this.props.userId}`, tHeaders)
+        .then(res => {
+          this.setState({ data: res.data });
+        })
+        .catch(err => {
+          console.log(err)
+        });
+    }
+    if (this.props.is_headmaster) {
+      axios.get(`http://localhost:8000/api/home/starredstudents/headmasterprofile/${this.props.userId}`, tHeaders)
+        .then(res => {
+          this.setState({ data: res.data });
+        })
+        .catch(err => {
+          console.log(err)
+        });
     }
   }
 

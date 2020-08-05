@@ -25,10 +25,13 @@ class EditStudentProfileForm extends React.Component {
         axios
             .get(`http://localhost:8000/api/home/students/${profileID}/`, tHeaders)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({
                     studentProfileComponent: res.data,
                 });
+            })
+            .catch(err => {
+                console.log(err)
             });
     }
 
@@ -38,22 +41,27 @@ class EditStudentProfileForm extends React.Component {
 
     onFinish = values => {
         var data = {}
-        console.log(this.state.studentProfileComponent)
+        // console.log(this.state.studentProfileComponent)
         for (var [key, value] of Object.entries(values)) {
             if (value === undefined) {
                 value = this.state.studentProfileComponent[key]
             }
             data[key] = value
         }
-        console.log(data)
+        // console.log(data)
 
         if (JSON.stringify(this.state.studentProfileComponent) !== JSON.stringify(data)) {
             const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
             axios
-                .post(
+                .put(
                     `http://localhost:8000/api/home/students/${this.state.studentProfileComponent.pk}/`, data, tHeaders)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
+                    message.success("Successfully Updated")
+                })
+                .catch(err => {
+                    console.log(err)
+                    message.error("Updation Failed")
                 });
         }
         if (JSON.stringify(this.state.studentProfileComponent) === JSON.stringify(data)) {

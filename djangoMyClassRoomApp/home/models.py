@@ -7,7 +7,7 @@ class HeadMaster(models.Model):
     def __str__(self):
         return self.user.username
 
-## Using OneToOneField instead of ForeignKey. Just to make it concept specific.
+## Using OneToOneField instead of ForeignKey. Just to make it concept specific. Primary Key i.e PK of User will give model values directly.
 class Teacher(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     subject = models.CharField(verbose_name="Subjects Tought", max_length=255) 

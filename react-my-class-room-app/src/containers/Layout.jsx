@@ -9,6 +9,8 @@ import MyFriends from "../components/MyFriends";
 import MyTeachers from "../components/MyTeachers";
 import SuggestedTeachers from "../components/SuggestedTeachers";
 import AllStudents from "../components/AllStudents";
+import AllTeachers from "../components/AllTeachers";
+
 import {
   TeamOutlined,
   LogoutOutlined,
@@ -52,7 +54,7 @@ class CustomLayout extends Component {
               }}
             >
               {this.props.isAuthenticated ? (
-                <div>
+                <React.Fragment>
                   <Menu mode="horizontal">
                     <Menu.Item key="class" icon={<TeamOutlined />}>
                       <Link to="/class">Class</Link>
@@ -61,7 +63,7 @@ class CustomLayout extends Component {
                       <Link to="/profile">Profile</Link>
                     </Menu.Item>
                     <Menu.Item key="invitations" icon={<PlusOutlined />}>
-                      <Link to="/invitations">Invitations</Link>
+                      <Link to="/invitations">Invitations<strong>(*incomplete)</strong></Link>
                     </Menu.Item>
                     <Menu.Item
                       key="logout"
@@ -73,9 +75,9 @@ class CustomLayout extends Component {
                   </Menu>
                   <br />
                   {this.props.children}
-                </div>
+                </React.Fragment>
               ) : (
-                  <div>
+                  <React.Fragment>
                     <Menu mode="horizontal">
                       <Menu.Item key="login" icon={<LoginOutlined />}>
                         <Link to="/login">Login</Link>
@@ -86,7 +88,7 @@ class CustomLayout extends Component {
                     </Menu>
                     <br />
                     {this.props.children}
-                  </div>
+                  </React.Fragment>
                 )}
             </Content>
             {this.props.isAuthenticated ? (
@@ -102,7 +104,7 @@ class CustomLayout extends Component {
                     </React.Fragment>
                   ) : (
                       <React.Fragment>
-                        <StarredStudents /><AllStudents />
+                        <StarredStudents /> <MyFriends />
                       </React.Fragment>
                     )}
                 </Sider>
@@ -117,7 +119,7 @@ class CustomLayout extends Component {
                     </React.Fragment>
                   ) : (
                       <React.Fragment>
-                        <MyFriends />
+                        <AllStudents /> {this.props.is_teacher ? null : <AllTeachers />}
                       </React.Fragment>
                     )}
                 </Sider>
@@ -144,7 +146,7 @@ class CustomLayout extends Component {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    error: state.error
+    error: state.error,
   };
 };
 

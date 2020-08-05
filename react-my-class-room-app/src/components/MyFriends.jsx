@@ -6,15 +6,17 @@ import { connect } from "react-redux";
 const { SubMenu } = Menu;
 
 class MyFriends extends React.Component {
-  state = { data: [] };
+  constructor(props) {
+    super(props);
+    this.state = { data: [] };
+  }
 
   componentDidMount() {
     const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
-
-    axios.get(`http://localhost:8000/api/home/students/`, tHeaders)
-      .then(res => {
-        this.setState({ data: res.data });
-      });
+    // axios.get(`http://localhost:8000/api/home/friends/`, tHeaders)
+    //   .then(res => {
+    //     this.setState({ data: res.data });
+    //   });
   }
 
   render() {
@@ -30,11 +32,12 @@ class MyFriends extends React.Component {
         defaultOpenKeys={["myFriends"]}
       >
         <SubMenu key="myFriends" icon={<SmileOutlined />} title="Friends">
-          {this.state.data.map(data => (
+          <Menu.Item key="friendsNoN"><strong>Feature NOT available!!</strong></Menu.Item>
+          {/* {this.state.data.map(data => (
             <Menu.Item key={data.pk}>
               <a href={`/profile/${data.pk}`}>{data.user}</a>
             </Menu.Item>
-          ))}
+          ))} */}
         </SubMenu>
       </Menu>
     );

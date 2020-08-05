@@ -14,6 +14,9 @@ class SuggestedTeachers extends React.Component {
     axios.get(`http://localhost:8000/api/home/suggestedteachers/${this.props.userId}`, tHeaders)
       .then(res => {
         this.setState({ data: res.data });
+      })
+      .catch(err => {
+        console.log(err)
       });
   }
 

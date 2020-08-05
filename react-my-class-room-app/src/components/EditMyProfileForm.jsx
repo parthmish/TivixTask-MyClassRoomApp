@@ -34,6 +34,9 @@ class EditMyProfileForm extends React.Component {
                 this.setState({
                     profileComponent: res.data,
                 });
+            })
+            .catch(err => {
+                console.log(err)
             });
     }
 
@@ -51,7 +54,7 @@ class EditMyProfileForm extends React.Component {
 
     onFinish = values => {
         var data = {}
-        console.log(this.state.profileComponent)
+        // console.log(this.state.profileComponent)
         for (var [key, value] of Object.entries(values)) {
             if (value === undefined) {
                 value = this.state.profileComponent[key]
@@ -63,15 +66,20 @@ class EditMyProfileForm extends React.Component {
             }
             data[key] = value
         }
-        console.log(data)
+        // console.log(data)
 
         if (JSON.stringify(this.state.profileComponent) !== JSON.stringify(data)) {
-            const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
+            const tHeaders = { headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${this.props.token}` } }
             axios
                 .put(
                     `http://localhost:8000/api/accounts/profiles/${this.state.profileComponent.pk}/`, data, tHeaders)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
+                    message.success("Successfully Updated")
+                })
+                .catch(err => {
+                    console.log(err)
+                    message.error("Updation Failed")
                 });
         }
         if (JSON.stringify(this.state.profileComponent) === JSON.stringify(data)) {
@@ -111,6 +119,7 @@ class EditMyProfileForm extends React.Component {
                         <InputNumber defaultValue={this.state.profileComponent.phone_number} />
                     </Form.Item>
                     <Form.Item label="Profile Pic" name="profile_image">
+                        Picture won't be updated.
                         <input type="file" accept="image/png, image/jpeg" onChange={this.handleChangeProfilePic} /> Current: {this.state.profileComponent.profile_image}
                     </Form.Item>
                     <Button type="primary" htmlType="submit" className="login-form-button">Submit</Button>

@@ -32,11 +32,11 @@ const StudentClassList = (props) => {
                                 text={item.stars === undefined ? 0 : item.stars}
                                 key="list-vertical-star-o"
                             />,
-                            <IconText
-                                icon={SmileOutlined}
-                                text="7"
-                                key="list-vertical-like-o"
-                            />
+                            // <IconText
+                            //     icon={SmileOutlined}
+                            //     text="NaN"
+                            //     key="list-vertical-like-o"
+                            // />
                         ]}
                     >
                         <Descriptions bordered>

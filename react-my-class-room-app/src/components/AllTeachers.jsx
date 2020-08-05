@@ -1,5 +1,3 @@
-//Component used to display all students in school.
-
 import React from "react";
 import axios from "axios";
 import { Menu } from "antd";
@@ -8,7 +6,7 @@ import { connect } from "react-redux";
 
 const { SubMenu } = Menu;
 
-class AllStudents extends React.Component {
+class AllTeachers extends React.Component {
     constructor(props) {
         super(props);
         this.state = { data: [] };
@@ -16,7 +14,8 @@ class AllStudents extends React.Component {
 
     componentDidMount() {
         const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
-        axios.get(`http://localhost:8000/api/home/students/`, tHeaders)
+
+        axios.get(`http://localhost:8000/api/home/teachers/`, tHeaders)
             .then(res => {
                 this.setState({ data: res.data });
             })
@@ -35,9 +34,9 @@ class AllStudents extends React.Component {
                     overflowY: "scroll",
                     overflowX: "hidden"
                 }}
-                defaultOpenKeys={["allStudents"]}
+                defaultOpenKeys={["allTeachers"]}
             >
-                <SubMenu key="allStudents" icon={<UserOutlined />} title="School Students">
+                <SubMenu key="allTeachers" icon={<UserOutlined />} title="School Teachers">
                     {this.state.data.map(data => (
                         <Menu.Item key={data.pk}>
                             <a href={`/profile/${data.pk}`}>{data.user}</a>
@@ -55,4 +54,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, null)(AllStudents);
+export default connect(mapStateToProps, null)(AllTeachers);
