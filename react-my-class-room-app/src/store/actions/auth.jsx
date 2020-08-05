@@ -1,5 +1,9 @@
+//Authentication Action Scripts...mapDispatchToProps dispatched methods are made here.
+//Functions names used cover the concept.
+
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
+import { message } from 'antd'
 
 export const authStart = () => {
   return {
@@ -36,6 +40,14 @@ export const checkAuthTimeout = expirationTime => {
   };
 };
 
+const fail = (text) => {
+  message.error(text)
+}
+
+const success = (text) => {
+  message.success(text)
+}
+
 export const authLogin = (username, password) => {
   return dispatch => {
     dispatch(authStart());
@@ -57,22 +69,30 @@ export const authLogin = (username, password) => {
         localStorage.setItem("user", JSON.stringify(user));
         dispatch(authSuccess(user));
         dispatch(checkAuthTimeout(3600));
+        success("Login Success")
+
       })
       .catch(err => {
         dispatch(authFail(err));
+        fail("User Login FAILED!!!")
       });
   };
 };
 
-export const authSignUp = (username, email, password1, password2) => {
+export const authSignUp = (username, email, password1, password2, is_student) => {
   return dispatch => {
     dispatch(authStart());
     axios.post("http://localhost:8000/rest-auth/registration/", {
       username: username,
       email: email,
       password1: password1,
-      password2: password2
-    });
+      password2: password2,
+      is_student: is_student
+    }).then(res => {
+      success("User Created")
+    }).catch(err => {
+      fail("User Creation FAILED!!!")
+    })
   };
 };
 

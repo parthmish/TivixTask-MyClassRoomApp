@@ -13,14 +13,9 @@ const RegistrationForm = props => {
       values.password1,
       values.password2
     );
-    props.history.push("/login");
   };
   return (
     <Form name="register" onFinish={onFinish}>
-      <PageHeader
-        className="site-page-header"
-        subTitle="Only Students Needs to Register"
-      />
       <Form.Item
         name="username"
         label="Username"
@@ -89,16 +84,22 @@ const RegistrationForm = props => {
         <Button type="primary" htmlType="submit">
           Register
         </Button>
-        Or <Link to="/login/">Login!</Link>
+        <div>
+          &nbsp; Or <Link to="/login/">Login!</Link>
+        </div>
       </Form.Item>
+      <PageHeader
+        className="site-page-header"
+        subTitle="Only Student's Registration Page."
+      />
     </Form>
   );
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (username, email, password1, password2) =>
-      dispatch(actions.authSignUp(username, email, password1, password2))
+    onAuth: (username, email, password1, password2, is_student = true) =>
+      dispatch(actions.authSignUp(username, email, password1, password2, is_student))
   };
 };
 

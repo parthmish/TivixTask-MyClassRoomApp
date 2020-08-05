@@ -2,16 +2,21 @@ import React from "react";
 import axios from "axios";
 import { Menu } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
-
+import { connect } from "react-redux";
 const { SubMenu } = Menu;
 
 class MyFriends extends React.Component {
-  state = { data: [] };
+  constructor(props) {
+    super(props);
+    this.state = { data: [] };
+  }
 
   componentDidMount() {
-    axios.get(`http://localhost:8000/api/home/students/`).then(res => {
-      this.setState({ data: res.data });
-    });
+    const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
+    // axios.get(`http://localhost:8000/api/home/friends/`, tHeaders)
+    //   .then(res => {
+    //     this.setState({ data: res.data });
+    //   });
   }
 
   render() {
@@ -27,15 +32,25 @@ class MyFriends extends React.Component {
         defaultOpenKeys={["myFriends"]}
       >
         <SubMenu key="myFriends" icon={<SmileOutlined />} title="Friends">
-          {this.state.data.map(data => (
+          <Menu.Item key="friendsNoN"><strong>Feature NOT available!!</strong></Menu.Item>
+          {/* {this.state.data.map(data => (
             <Menu.Item key={data.pk}>
               <a href={`/profile/${data.pk}`}>{data.user}</a>
             </Menu.Item>
-          ))}
+          ))} */}
         </SubMenu>
       </Menu>
     );
   }
 }
 
-export default MyFriends;
+const mapStateToProps = state => {
+  return {
+    token: state.token,
+    is_student: state.is_student,
+    is_teacher: state.is_teacher,
+    is_headmaster: state.is_headmaster
+  };
+};
+
+export default connect(mapStateToProps, null)(MyFriends);

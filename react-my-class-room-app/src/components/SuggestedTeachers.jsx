@@ -10,9 +10,14 @@ class SuggestedTeachers extends React.Component {
   state = { data: [] };
 
   componentDidMount() {
-    axios.get(`http://localhost:8000/api/home/suggestedteachers/${this.props.userId}`).then(res => {
-      this.setState({ data: res.data });
-    });
+    const tHeaders = { headers: { "Authorization": `Token ${this.props.token}` } }
+    axios.get(`http://localhost:8000/api/home/suggestedteachers/${this.props.userId}`, tHeaders)
+      .then(res => {
+        this.setState({ data: res.data });
+      })
+      .catch(err => {
+        console.log(err)
+      });
   }
 
   render() {
@@ -47,6 +52,7 @@ const mapStateToProps = state => {
   return {
     loading: state.loading,
     error: state.error,
+    token: state.token,
     userId: state.userId,
   };
 };

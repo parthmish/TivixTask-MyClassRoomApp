@@ -7,7 +7,7 @@ class HeadMaster(models.Model):
     def __str__(self):
         return self.user.username
 
-## Using OneToOneField instead of ForeignKey. Just to make it concept specific.
+## Using OneToOneField instead of ForeignKey. Just to make it concept specific. Primary Key i.e PK of User will give model values directly.
 class Teacher(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     subject = models.CharField(verbose_name="Subjects Tought", max_length=255) 
@@ -42,7 +42,6 @@ class Student(models.Model):
         ('7th grade', '7th grade'),
         ('8th grade', '8th grade'),
         ('9th grade', '9th grade'),
-        ('9th grade', '9th grade'),
         ('10th grade', '10th grade'),
     )
     section_opt = (
@@ -59,3 +58,6 @@ class Student(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def nameFile(instance, filename):
+        return '/'.join(['images', str(instance.name), filename])
