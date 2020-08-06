@@ -10,8 +10,9 @@ MyClasssRoomApp is based on the system asked to implement for the Coding Task. I
 ## Installation: 
 Run docker-compose in root directory 
 ```
+$ git clone https://github.com/parthmish/TivixTask-MyClassRoomApp.git
 $ docker-compose up
 ```
-## Usage
+## Usage:
 - http://127.0.0.1:8000 or http://localhost:8000/ is the Django app
 - http://127.0.0.1:3000 or http://localhost:3000/ is the React app
