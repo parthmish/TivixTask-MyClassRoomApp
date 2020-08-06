@@ -8,11 +8,15 @@ MyClasssRoomApp is based on the system asked to implement for the Coding Task. I
 3. Student: They can register on App and also view their fellow classmates and teachers.
 
 ## Installation: 
-Run docker-compose in root directory 
+Run docker-compose in root directory of clone.
 ```
 $ git clone https://github.com/parthmish/TivixTask-MyClassRoomApp.git
 $ docker-compose up
 ```
 ## Usage:
-- http://127.0.0.1:8000 or http://localhost:8000/ is the Django app
-- http://127.0.0.1:3000 or http://localhost:3000/ is the React app
+- http://127.0.0.1:8000 or http://localhost:8000/ - Django app
+- http://127.0.0.1:3000 or http://localhost:3000/ - React app
+
+For Windows with Docker ToolBox only
+- http://192.168.99.100:8000/ - Django app
+- http://192.168.99.100:3000/ - React app
